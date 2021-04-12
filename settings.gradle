@@ -1,2 +1,3 @@
+include ':im_server'
 include ':app'
 rootProject.name = "IM"

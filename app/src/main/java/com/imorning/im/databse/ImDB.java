@@ -21,8 +21,7 @@ public class ImDB {
 	private SQLiteDatabase db;
 
 	private ImDB(Context context) {
-		ImOpenHelper imOpenHelper = new ImOpenHelper(context, DB_NAME, null,
-				VERSION);
+		ImOpenHelper imOpenHelper = new ImOpenHelper(context, DB_NAME, null, VERSION);
 		db = imOpenHelper.getWritableDatabase();
 	}
 
