@@ -44,12 +44,12 @@
         "source": "G:\\Projects\\AndroidStudioProjects\\IM\\app\\src\\main\\res\\drawable-hdpi\\bg_card_press.9.png"
     },
     {
-        "merged": "G:\\Projects\\AndroidStudioProjects\\IM\\app\\build\\intermediates\\res\\merged\\debug\\layout_common_flipping_loading_diloag.xml.flat",
-        "source": "G:\\Projects\\AndroidStudioProjects\\IM\\app\\src\\main\\res\\layout\\common_flipping_loading_diloag.xml"
-    },
-    {
         "merged": "G:\\Projects\\AndroidStudioProjects\\IM\\app\\build\\intermediates\\res\\merged\\debug\\layout_common_toast.xml.flat",
         "source": "G:\\Projects\\AndroidStudioProjects\\IM\\app\\src\\main\\res\\layout\\common_toast.xml"
+    },
+    {
+        "merged": "G:\\Projects\\AndroidStudioProjects\\IM\\app\\build\\intermediates\\res\\merged\\debug\\layout_common_flipping_loading_diloag.xml.flat",
+        "source": "G:\\Projects\\AndroidStudioProjects\\IM\\app\\src\\main\\res\\layout\\common_flipping_loading_diloag.xml"
     },
     {
         "merged": "G:\\Projects\\AndroidStudioProjects\\IM\\app\\build\\intermediates\\res\\merged\\debug\\anim_loading.xml.flat",

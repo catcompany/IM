@@ -1,7 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/buttom_bar_group"
@@ -9,9 +8,9 @@
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:gravity="center_vertical"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
-        <RelativeLayout style="@style/ButtomBar" >
+        <RelativeLayout style="@style/ButtomBar">
 
             <ImageButton
                 android:id="@+id/buttom_news"
@@ -20,7 +19,7 @@
                 android:contentDescription="@string/app_name" />
         </RelativeLayout>
 
-        <RelativeLayout style="@style/ButtomBar" >
+        <RelativeLayout style="@style/ButtomBar">
 
             <ImageButton
                 android:id="@+id/buttom_constact"
@@ -29,7 +28,7 @@
                 android:contentDescription="@string/app_name" />
         </RelativeLayout>
 
-        <RelativeLayout style="@style/ButtomBar" >
+        <RelativeLayout style="@style/ButtomBar">
 
             <ImageButton
                 android:id="@+id/buttom_deynaimic"
@@ -38,7 +37,7 @@
                 android:contentDescription="@string/app_name" />
         </RelativeLayout>
 
-        <RelativeLayout style="@style/ButtomBar" >
+        <RelativeLayout style="@style/ButtomBar">
 
             <ImageButton
                 android:id="@+id/buttom_setting"

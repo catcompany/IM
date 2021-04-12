@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent">
 
-    <com.sdust.im.view.CropImageView
+    <com.imorning.im.view.CropImageView
         android:id="@+id/imagefactory_crop_civ_display"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" 
-        android:scaleType="center"/>
+        android:layout_height="fill_parent"
+        android:scaleType="center" />
 
     <ProgressBar
         android:id="@+id/imagefactory_crop_pb_progressbar"

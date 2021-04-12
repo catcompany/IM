@@ -25,7 +25,7 @@
                 android:orientation="horizontal"
                 android:paddingBottom="15dip" >
 
-                <com.sdust.im.view.HandyTextView
+                <com.imorning.im.view.HandyTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="出生日期"
@@ -40,7 +40,7 @@
                     android:gravity="right"
                     android:orientation="horizontal" >
 
-                    <com.sdust.im.view.HandyTextView
+                    <com.imorning.im.view.HandyTextView
                         android:id="@+id/reg_birthday_htv_constellation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
                         android:textColor="@color/text_color"
                         android:textSize="17sp" />
 
-                    <com.sdust.im.view.HandyTextView
+                    <com.imorning.im.view.HandyTextView
                         android:id="@+id/reg_birthday_htv_age"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
                         android:textColor="@color/text_color"
                         android:textSize="17sp" />
 
-                    <com.sdust.im.view.HandyTextView
+                    <com.imorning.im.view.HandyTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="岁"
@@ -85,7 +85,7 @@
                     android:calendarViewShown="false"
                     android:spinnersShown="true" />
 
-                <com.sdust.im.view.HandyTextView
+                <com.imorning.im.view.HandyTextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dip"

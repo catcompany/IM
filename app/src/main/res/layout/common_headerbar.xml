@@ -33,7 +33,7 @@
             android:paddingRight="8dip"
             android:visibility="gone" >
 
-            <com.sdust.im.view.ScrollingTextView
+            <com.imorning.im.view.ScrollingTextView
                 android:id="@+id/header_stv_title"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
                 android:textColor="#FFFFFFFF"
                 android:textSize="18sp" />
 
-            <com.sdust.im.view.HandyTextView
+            <com.imorning.im.view.HandyTextView
                 android:id="@+id/header_htv_subtitle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
                 android:textSize="12sp" />
         </LinearLayout>
 
-        <com.sdust.im.view.HeaderSpinner
+        <com.imorning.im.view.HeaderSpinner
             android:id="@+id/header_hs_spinner"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -151,13 +151,13 @@
         android:gravity="center_vertical"
         android:orientation="horizontal" >
 
-        <com.sdust.im.view.SwitcherButton
+        <com.imorning.im.view.SwitcherButton
             android:id="@+id/header_sb_rightview_switcherbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="6dip"
             android:visibility="gone" >
-        </com.sdust.im.view.SwitcherButton>
+        </com.imorning.im.view.SwitcherButton>
     </LinearLayout>
 
 </LinearLayout>

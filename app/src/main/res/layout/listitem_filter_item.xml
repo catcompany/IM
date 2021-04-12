@@ -23,7 +23,7 @@
         android:focusable="true"
         android:src="@drawable/btn_filter_cover" />
 
-    <com.sdust.im.view.HandyTextView
+    <com.imorning.im.view.HandyTextView
         android:id="@+id/filter_item_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

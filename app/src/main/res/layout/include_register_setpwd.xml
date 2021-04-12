@@ -18,7 +18,7 @@
             android:paddingRight="10dip"
             android:paddingTop="15dip" >
 
-            <com.sdust.im.view.HandyTextView
+            <com.imorning.im.view.HandyTextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dip"

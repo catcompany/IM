@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent" >
 
-                <com.sdust.im.view.HandyTextView
+                <com.imorning.im.view.HandyTextView
                     android:id="@+id/reg_account_htv_notice"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
