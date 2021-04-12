@@ -10,7 +10,6 @@ com/imorning/im/SignUp.java
  com.imorning.im.SignUp$1
  com.imorning.im.SignUp$2
  com.imorning.im.SignUp$2$1
- com.imorning.im.SignUp$2$1$1
  com.imorning.im.SignUp$3
  com.imorning.im.SignUp$4
  com.imorning.im.SignUp$5

@@ -19,7 +19,7 @@ import java.util.HashMap;
 
 public class SocketOperator implements ISocketOperator {
 
-    private static final String AUTHENTICATION_SERVER_ADDRESS = "https://blog.catcompany.cn/imserver/index.php";
+    private static final String AUTHENTICATION_SERVER_ADDRESS = "http://blog.catcompany.cn/imserver/index.php";
     private static final String HTTP_REQUEST_FAILED = null;
     private final HashMap<InetAddress, Socket> sockets = new HashMap<>();
     private int listeningPort = 0;
