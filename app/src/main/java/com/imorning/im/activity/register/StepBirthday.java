@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.DatePicker.OnDateChangedListener;
 
-import com.sdust.im.R;
+import com.imorning.im.R;
 import com.imorning.im.util.DateUtils;
 import com.imorning.im.util.TextUtils;
 import com.imorning.im.view.HandyTextView;

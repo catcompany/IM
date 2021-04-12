@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.sdust.im.R;
+import com.imorning.im.R;
 
 public class SwitcherButton extends LinearLayout {
 	private View mView;

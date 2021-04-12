@@ -2,10 +2,11 @@ package com.imorning.im.adapter;
 
 import java.util.List;
 
-import com.sdust.im.R;
+import com.imorning.im.R;
 import com.imorning.im.bean.ApplicationData;
 import com.imorning.im.bean.User;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ public class FriendListAdapter extends BaseAdapter {
 		mInflater = LayoutInflater.from(context);
 		System.out.println("初始化FriendAdapter");
 	}
+	@SuppressLint("ViewHolder")
 	@Override
 	public View getView(int position, View convertView, ViewGroup root) {
 		ImageView avatarView;
@@ -34,8 +36,7 @@ public class FriendListAdapter extends BaseAdapter {
 		Bitmap photo = (ApplicationData.getInstance().getFriendPhotoMap()).get(user.getId());
 		String name = user.getUserName();
 		String briefIntro = user.getUserBriefIntro();
-		convertView = mInflater.inflate(R.layout.friend_list_item,
-				null);
+		convertView = mInflater.inflate(R.layout.friend_list_item, null);
 		avatarView = (ImageView) convertView
 				.findViewById(R.id.user_photo);
 		nameView = (TextView) convertView
@@ -59,7 +60,7 @@ public class FriendListAdapter extends BaseAdapter {
 
 		return convertView;
 	}
-
+	
 	public int getCount() {
 		return mFriendList.size();
 	}

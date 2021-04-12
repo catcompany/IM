@@ -9,8 +9,6 @@
     <color name="white">#FFFFFFFF</color>
 
 
-    <color name="white">#ffffffff</color>
-    <color name="black">#ff000000</color>
     <color name="red">#ffff0000</color>
     <color name="dark_red">#ff8c1c1c</color>
     <color name="transparent">#00000000</color>
@@ -163,4 +161,5 @@
     <color name="bg_tips_normal">#ffe3ded0</color>
     <color name="bg_tips_press">#ffccc8bc</color>
     <color name="contact_indicator_color">#ff33b5e5</color>
+
 </resources>

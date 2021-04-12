@@ -1,6 +1,7 @@
 package com.imorning.im.activity;
 
-import com.sdust.im.R;
+
+import com.imorning.im.R;
 import com.imorning.im.util.SpUtil;
 
 import android.app.Activity;

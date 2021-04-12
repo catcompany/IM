@@ -23,9 +23,9 @@ import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
+import com.imorning.im.R;
 import com.imorning.im.activity.imagefactory.ImageFactoryActivity;
 import com.imorning.im.activity.imagefactory.ImageFactoryFliter.FilterType;
-import com.sdust.im.R;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -259,9 +259,9 @@ public class PhotoUtils {
      * 保存图片到SD卡
      *
      * @param bitmap 图片的bitmap对象
-     * @return
+     * @return 保存的路径
      */
-    public static Object savePhotoToSDCard(Bitmap bitmap) {
+    public static String savePhotoToSDCard(Bitmap bitmap) {
         if (!FileUtils.isSdcardExist()) {
             return null;
         }
@@ -380,8 +380,7 @@ public class PhotoUtils {
             }
         }
 
-        Bitmap acrossFlushBitmap = Bitmap.createBitmap(width, height,
-                Config.RGB_565);
+        Bitmap acrossFlushBitmap = Bitmap.createBitmap(width, height, Config.RGB_565);
         acrossFlushBitmap.setPixels(dst, 0, width, 0, 0, width, height);
         return acrossFlushBitmap;
     }
@@ -405,8 +404,7 @@ public class PhotoUtils {
         } else if ("IT".equals(text)) {
             color = "#ff27a5e3";
         }
-        Bitmap src = BitmapFactory.decodeResource(context.getResources(),
-                R.drawable.ic_userinfo_group);
+        Bitmap src = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_userinfo_group);
         int x = src.getWidth();
         int y = src.getHeight();
         Bitmap bmp = Bitmap.createBitmap(x, y, Config.ARGB_8888);

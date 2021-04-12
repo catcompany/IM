@@ -3,7 +3,7 @@ package com.imorning.im.activity;
 import java.io.IOException;
 
 import com.imorning.im.BaseActivity;
-import com.sdust.im.R;
+import com.imorning.im.R;
 import com.imorning.im.action.UserAction;
 import com.imorning.im.activity.register.RegisterActivity;
 import com.imorning.im.bean.ApplicationData;

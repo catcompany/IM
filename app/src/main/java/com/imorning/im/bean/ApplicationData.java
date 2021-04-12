@@ -8,7 +8,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 
 import com.imorning.im.databse.ImDB;
 import com.imorning.im.global.Result;

@@ -2,6 +2,7 @@ package com.imorning.im.activity.register;
 
 import java.io.IOException;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,7 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import com.sdust.im.R;
+import com.imorning.im.R;
 import com.imorning.im.action.UserAction;
 import com.imorning.im.bean.TranObject;
 import com.imorning.im.global.Result;
@@ -47,10 +48,11 @@ public class StepAccount extends RegisterStep implements TextWatcher {
 		mEtAccount.addTextChangedListener(this);
 	}
 
+	@SuppressLint("StaticFieldLeak")
 	@Override
 	public void doNext() {
+		//Android 11弃用了该方法，具体查看Android开发者官网
 		new AsyncTask<Void, Void, Integer>() {
-
 			@Override
 			protected void onPreExecute() {
 				super.onPreExecute();

@@ -1,6 +1,6 @@
 package com.imorning.im.view;
 
-import com.sdust.im.R;
+import com.imorning.im.R;
 import com.imorning.im.util.SystemMethod;
 
 import android.annotation.SuppressLint;

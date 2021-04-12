@@ -3,7 +3,7 @@ package com.imorning.im.fragment;
 import java.util.List;
 
 import com.imorning.im.BaseDialog;
-import com.sdust.im.R;
+import com.imorning.im.R;
 import com.imorning.im.action.UserAction;
 import com.imorning.im.activity.ChatActivity;
 import com.imorning.im.adapter.FriendMessageAdapter;
@@ -16,15 +16,17 @@ import com.imorning.im.view.SlideCutListView.RemoveDirection;
 import com.imorning.im.view.SlideCutListView.RemoveListener;
 import com.imorning.im.view.TitleBarView;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.view.*;
 import android.widget.AdapterView;
+
+import androidx.fragment.app.Fragment;
 
 public class MessageFragment extends Fragment implements RemoveListener {
 	private Context mContext;
@@ -55,18 +57,15 @@ public class MessageFragment extends Fragment implements RemoveListener {
 				.findViewById(R.id.message_list_listview);
 	}
 
+	@SuppressLint("HandlerLeak")
 	private void init() {
 		mMessageListView.setRemoveListener(this);
 		initDialog();
 		handler = new Handler() {
 			public void handleMessage(Message msg) {
-				switch (msg.what) {
-				case 1:
+				if (msg.what == 1) {
 					adapter.notifyDataSetChanged();
 					mMessageListView.setSelection(mMessageEntityList.size());
-					break;
-				default:
-					break;
 				}
 			}
 		};

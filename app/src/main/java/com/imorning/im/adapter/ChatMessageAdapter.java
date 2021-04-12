@@ -2,11 +2,12 @@ package com.imorning.im.adapter;
 
 import java.util.List;
 
-import com.sdust.im.R;
+import com.imorning.im.R;
 import com.imorning.im.bean.ApplicationData;
 import com.imorning.im.bean.ChatEntity;
 import com.imorning.im.bean.User;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
@@ -96,6 +97,7 @@ public class ChatMessageAdapter extends BaseAdapter {
 		mContext0 = context;
 	}
 
+	@SuppressLint("ViewHolder")
 	@Override
 	public View getView(int position, View view, ViewGroup parent) {
 		LinearLayout leftLayout;

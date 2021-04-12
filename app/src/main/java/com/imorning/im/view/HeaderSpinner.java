@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.sdust.im.R;
+import com.imorning.im.R;
 
 public class HeaderSpinner extends LinearLayout {
 
@@ -53,15 +53,11 @@ public class HeaderSpinner extends LinearLayout {
 	}
 
 	private void initEvents() {
-		mLayoutRoot.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				if (mOnSpinnerClickListener != null) {
-					mIsSelect = !mIsSelect;
-					initSpinnerState(mIsSelect);
-					mOnSpinnerClickListener.onClick(mIsSelect);
-				}
+		mLayoutRoot.setOnClickListener(v -> {
+			if (mOnSpinnerClickListener != null) {
+				mIsSelect = !mIsSelect;
+				initSpinnerState(mIsSelect);
+				mOnSpinnerClickListener.onClick(mIsSelect);
 			}
 		});
 	}

@@ -11,6 +11,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import com.imorning.im.BaseActivity;
+import com.imorning.im.R;
 import com.imorning.im.action.UserAction;
 import com.imorning.im.bean.ApplicationData;
 import com.imorning.im.bean.TranObject;
