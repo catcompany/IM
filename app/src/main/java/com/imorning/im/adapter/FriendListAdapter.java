@@ -60,7 +60,7 @@ public class FriendListAdapter extends BaseAdapter {
 
 		return convertView;
 	}
-	
+
 	public int getCount() {
 		return mFriendList.size();
 	}
