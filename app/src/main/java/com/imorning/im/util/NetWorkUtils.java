@@ -35,9 +35,7 @@ public class NetWorkUtils {
 				&& State.CONNECTED != wifiState
 				&& State.CONNECTED == mobileState) {
 			return NetWorkState.MOBILE;
-		} else if (wifiState != null && mobileState != null
-				&& State.CONNECTED != wifiState
-				&& State.CONNECTED != mobileState) {
+		} else if (wifiState != null && mobileState != null && State.CONNECTED != wifiState) {
 			return NetWorkState.NONE;
 		} else if (wifiState != null && State.CONNECTED == wifiState) {
 			return NetWorkState.WIFI;

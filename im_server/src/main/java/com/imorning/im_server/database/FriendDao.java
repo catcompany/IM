@@ -1,12 +1,12 @@
-package com.imorning.im_server.DataBase;
+package com.imorning.im_server.database;
+
+import com.imorning.im_server.bean.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import com.imorning.im_server.bean.User;
 
 public class FriendDao {
 	//防止初始化
@@ -50,7 +50,7 @@ public class FriendDao {
 		return list;
 	}
 	public static void addFriend(int id, int friendID) {
-		String sql0 = "use myqq";
+		String sql0 = "use " + ServerDatabaseInfo.tableName;
 		String sql1 = "insert into friendlist(master,friendid) " +
 				"values(?,?)";
 		Connection con = DBPool.getConnection();

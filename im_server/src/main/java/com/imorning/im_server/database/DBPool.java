@@ -1,8 +1,7 @@
-package com.imorning.im_server.DataBase;
+package com.imorning.im_server.database;
 
 import org.apache.commons.dbcp2.BasicDataSourceFactory;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -22,7 +21,7 @@ public class DBPool {
 
 	static {
 		try {
-			InputStream in = DBPool.class.getClassLoader().getResourceAsStream("dbcpconfig.properties");
+			InputStream in = DBPool.class.getClassLoader().getResourceAsStream("db_config.properties");
 			Properties pro = new Properties();
 			pro.load(in);
 			ds = BasicDataSourceFactory.createDataSource(pro);

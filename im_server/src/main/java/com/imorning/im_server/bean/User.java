@@ -1,8 +1,3 @@
-/**
- * 文件名：User.java
- * 时间：2015年5月9日上午10:23:19
- * 作者：修维康
- */
 package com.imorning.im_server.bean;
 
 import java.io.Serializable;

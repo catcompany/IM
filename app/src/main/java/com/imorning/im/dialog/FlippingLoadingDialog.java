@@ -9,7 +9,6 @@ import com.imorning.im.view.HandyTextView;
 
 public class FlippingLoadingDialog extends BaseDialog {
 
-    private FlippingImageView mFivIcon;
     private HandyTextView mHtvText;
     private String mText;
 
@@ -21,9 +20,9 @@ public class FlippingLoadingDialog extends BaseDialog {
 
     private void init() {
         setContentView(R.layout.common_flipping_loading_diloag);
-        mFivIcon = (FlippingImageView) findViewById(R.id.loadingdialog_fiv_icon);
+        FlippingImageView flippingImageView = (FlippingImageView) findViewById(R.id.loadingdialog_fiv_icon);
         mHtvText = (HandyTextView) findViewById(R.id.loadingdialog_htv_text);
-        mFivIcon.startAnimation();
+        flippingImageView.startAnimation();
         mHtvText.setText(mText);
     }
 

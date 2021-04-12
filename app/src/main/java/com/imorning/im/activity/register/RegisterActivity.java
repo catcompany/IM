@@ -1,5 +1,6 @@
 package com.imorning.im.activity.register;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -85,6 +86,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
         }
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View arg0) {
         switch (arg0.getId()) {
@@ -257,20 +259,10 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
 
     private void initBackDialog() {
         mBackDialog = BaseDialog.getDialog(RegisterActivity.this, "提示",
-                "确认要放弃注册么?", "确认", new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        finish();
-                    }
-                }, "取消", new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
+                "确认要放弃注册么?", "确认", (dialog, which) -> {
+                    dialog.dismiss();
+                    finish();
+                }, "取消", (dialog, which) -> dialog.cancel());
         mBackDialog.setButton1Background(R.drawable.btn_default_popsubmit);
 
     }
