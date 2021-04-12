@@ -5,6 +5,7 @@
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 /build
-/gradle
+/.gradle/
+/gradle/
 app/build
 *.cxx
