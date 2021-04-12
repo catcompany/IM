@@ -2,11 +2,15 @@ package com.imorning.im.interfaces;
 
 
 public interface ISocketOperator {
-	
-	public String sendHttpRequest(String params);
-	public int startListening(int port);
-	public void stopListening();
-	public void exit();
-	public int getListeningPort();
+
+    String sendHttpRequest(String params);
+
+    int startListening(int port);
+
+    void stopListening();
+
+    void exit();
+
+    int getListeningPort();
 
 }

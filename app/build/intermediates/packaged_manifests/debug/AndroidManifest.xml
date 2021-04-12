@@ -21,19 +21,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:testOnly="true"
-        android:theme="@style/Theme.IM" >
-        <activity android:name="com.imorning.im.FriendList" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.NORMAL" />
-            </intent-filter>
-        </activity>
+        android:theme="@style/Theme.IM"
+        android:usesCleartextTraffic="true" >
         <activity android:name="com.imorning.im.Login" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.imorning.im.FriendList" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.NORMAL" />
             </intent-filter>
         </activity>
         <activity android:name="com.imorning.im.Messaging" >

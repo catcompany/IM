@@ -115,7 +115,6 @@ public class Login extends Activity {
                              */
                             handler.post(() -> {
                                 Toast.makeText(getApplicationContext(), R.string.make_sure_username_and_password_correct, Toast.LENGTH_LONG).show();
-
                                 //showDialog(MAKE_SURE_USERNAME_AND_PASSWORD_CORRECT);
                             });
 

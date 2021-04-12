@@ -8,7 +8,6 @@ import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
@@ -36,15 +35,13 @@ import java.io.UnsupportedEncodingException;
 public class Messaging extends Activity {
 
     private static final int MESSAGE_CANNOT_BE_SENT = 0;
+    private final FriendInfo friend = new FriendInfo();
+    private final MessageReceiver messageReceiver = new MessageReceiver();
     public String username;
     private EditText messageText;
     private EditText messageHistoryText;
     private Button sendMessageButton;
     private IAppManager imService;
-    private final FriendInfo friend = new FriendInfo();
-    private LocalStorageHandler localstoragehandler;
-    private Cursor dbCursor;
-
     private final ServiceConnection mConnection = new ServiceConnection() {
 
 
@@ -58,7 +55,8 @@ public class Messaging extends Activity {
                     Toast.LENGTH_SHORT).show();
         }
     };
-    private final MessageReceiver messageReceiver = new MessageReceiver();
+    private LocalStorageHandler localstoragehandler;
+    private Cursor dbCursor;
 
     public static void cancelNotification(Context ctx, int notifyId) {
         String ns = Context.NOTIFICATION_SERVICE;
@@ -119,8 +117,8 @@ public class Messaging extends Activity {
         }
 
         sendMessageButton.setOnClickListener(new OnClickListener() {
-            CharSequence message;
             final Handler handler = new Handler();
+            CharSequence message;
 
             public void onClick(View arg0) {
                 message = messageText.getText();
@@ -186,8 +184,8 @@ public class Messaging extends Activity {
             return new AlertDialog.Builder(Messaging.this)
                     .setMessage(message)
                     .setPositiveButton(R.string.OK, (dialog, whichButton) -> {
-						/* User clicked OK so do some stuff */
-					})
+                        /* User clicked OK so do some stuff */
+                    })
                     .create();
         }
     }
@@ -217,7 +215,7 @@ public class Messaging extends Activity {
 
     }
 
-	public void appendToMessageHistory(String username, String message) {
+    public void appendToMessageHistory(String username, String message) {
         Log.e("IM_MSG", "Messaging:appendToMessageHistory: " + message);
         if (username != null && message != null) {
             messageHistoryText.append(username + ":\n");

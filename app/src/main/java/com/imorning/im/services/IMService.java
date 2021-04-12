@@ -166,8 +166,7 @@ public class IMService extends Service implements IAppManager, IUpdateData {
         i.putExtra(MessageInfo.MESSAGETEXT, msg);
 
         // The PendingIntent to launch our activity if the user selects this notification
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                i, 0);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, i, 0);
 
         // Set the info for the views that show in the notification panel.
         // msg.length()>15 ? MSG : msg.substring(0, 15);
@@ -175,8 +174,7 @@ public class IMService extends Service implements IAppManager, IUpdateData {
 
         mBuilder.setContentText("New message from " + username + ": " + msg);
 
-        //TODO: it can be improved, for instance message coming from same user may be concatenated
-        // next version
+        //TODO: it can be improved, for instance message coming from same user may be concatenated next version
 
         // Send the notification.
         // We use a layout id because it is a unique number.  We use it later to cancel.
@@ -223,7 +221,7 @@ public class IMService extends Service implements IAppManager, IUpdateData {
      * it returns the friend list or if authentication is failed
      * it returns the "0" in string type
      *
-     * @throws UnsupportedEncodingException
+     * @throws UnsupportedEncodingException Unsupported encode
      */
     public String authenticateUser(String usernameText, String passwordText) throws UnsupportedEncodingException {
         this.username = usernameText;
@@ -261,7 +259,7 @@ public class IMService extends Service implements IAppManager, IUpdateData {
                                 //Log.i("IM_MSG", "MSG list broadcast sent");
                             }
                         } else {
-                            //Log.i("friend list returned null", "");
+                            Log.i("friend list returned null", "");
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -285,7 +283,7 @@ public class IMService extends Service implements IAppManager, IUpdateData {
             sendBroadcast(i);
             Log.i("NOTIFICATION", "Created: " + msg.messagetext);
             String activeFriend = FriendController.getActiveFriend();
-            if (activeFriend == null || activeFriend.equals(username) == false) {
+            if (activeFriend == null || !activeFriend.equals(username)) {
                 localstoragehandler.insert(username, this.getUsername(), message);
                 showNotification(username, message);
                 Log.i("NOTIFICATION", "showNotification: " + message);
@@ -297,13 +295,12 @@ public class IMService extends Service implements IAppManager, IUpdateData {
     }
 
     private String getAuthenticateUserParams(String usernameText, String passwordText) throws UnsupportedEncodingException {
-        String params = "username=" + URLEncoder.encode(usernameText, "UTF-8") +
+
+        return "username=" + URLEncoder.encode(usernameText, "UTF-8") +
                 "&password=" + URLEncoder.encode(passwordText, "UTF-8") +
                 "&action=" + URLEncoder.encode("authenticateUser", "UTF-8") +
                 "&port=" + URLEncoder.encode(Integer.toString(socketOperator.getListeningPort()), "UTF-8") +
                 "&";
-
-        return params;
     }
 
     public void setUserKey(String value) {
@@ -343,9 +340,7 @@ public class IMService extends Service implements IAppManager, IUpdateData {
                 "&email=" + emailText +
                 "&";
 
-        String result = socketOperator.sendHttpRequest(params);
-
-        return result;
+        return socketOperator.sendHttpRequest(params);
     }
 
     public String addNewFriendRequest(String friendUsername) {
@@ -355,9 +350,7 @@ public class IMService extends Service implements IAppManager, IUpdateData {
                 "&friendUserName=" + friendUsername +
                 "&";
 
-        String result = socketOperator.sendHttpRequest(params);
-
-        return result;
+        return socketOperator.sendHttpRequest(params);
     }
 
     public String sendFriendsReqsResponse(String approvedFriendNames,
@@ -369,9 +362,7 @@ public class IMService extends Service implements IAppManager, IUpdateData {
                 "&discardedFriends=" + discardedFriendNames +
                 "&";
 
-        String result = socketOperator.sendHttpRequest(params);
-
-        return result;
+        return socketOperator.sendHttpRequest(params);
 
     }
 
@@ -379,11 +370,7 @@ public class IMService extends Service implements IAppManager, IUpdateData {
         try {
             SAXParser sp = SAXParserFactory.newInstance().newSAXParser();
             sp.parse(new ByteArrayInputStream(xml.getBytes()), new XMLHandler(IMService.this));
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -392,11 +379,7 @@ public class IMService extends Service implements IAppManager, IUpdateData {
         try {
             SAXParser sp = SAXParserFactory.newInstance().newSAXParser();
             sp.parse(new ByteArrayInputStream(xml.getBytes()), new XMLHandler(IMService.this));
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }
     }
