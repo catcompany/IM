@@ -2189,7 +2189,6 @@ layout friend_list_screen
 layout list_screen
 layout local_service_controller
 layout login_screen
-layout main
 layout material_chip_input_combo
 layout material_clock_display
 layout material_clock_display_divider

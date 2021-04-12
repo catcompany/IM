@@ -1,7 +1,10 @@
 com/imorning/im/tools/LocalStorageHandler.java
  com.imorning.im.tools.LocalStorageHandler
-com/imorning/im/types/MessageInfo.java
- com.imorning.im.types.MessageInfo
+com/imorning/im/services/IMService.java
+ com.imorning.im.services.IMService
+ com.imorning.im.services.IMService$1
+ com.imorning.im.services.IMService$2
+ com.imorning.im.services.IMService$IMBinder
 com/imorning/im/SignUp.java
  com.imorning.im.SignUp
  com.imorning.im.SignUp$1
@@ -35,8 +38,9 @@ com/imorning/im/tools/FriendController.java
  com.imorning.im.tools.FriendController
 com/imorning/im/types/FriendInfo.java
  com.imorning.im.types.FriendInfo
-com/imorning/im/interfaces/IUpdateData.java
- com.imorning.im.interfaces.IUpdateData
+com/imorning/im/communication/SocketOperator.java
+ com.imorning.im.communication.SocketOperator
+ com.imorning.im.communication.SocketOperator$ReceiveConnection
 com/imorning/im/Login.java
  com.imorning.im.Login
  com.imorning.im.Login$1
@@ -61,11 +65,7 @@ com/imorning/im/types/STATUS.java
  com.imorning.im.types.STATUS
 com/imorning/im/tools/MessageController.java
  com.imorning.im.tools.MessageController
-com/imorning/im/communication/SocketOperator.java
- com.imorning.im.communication.SocketOperator
- com.imorning.im.communication.SocketOperator$ReceiveConnection
-com/imorning/im/services/IMService.java
- com.imorning.im.services.IMService
- com.imorning.im.services.IMService$1
- com.imorning.im.services.IMService$2
- com.imorning.im.services.IMService$IMBinder
+com/imorning/im/types/MessageInfo.java
+ com.imorning.im.types.MessageInfo
+com/imorning/im/interfaces/IUpdateData.java
+ com.imorning.im.interfaces.IUpdateData

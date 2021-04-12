@@ -4,10 +4,6 @@
         "source": "G:\\Projects\\AndroidStudioProjects\\IM\\app\\src\\main\\res\\mipmap-anydpi-v26\\ic_launcher_round.xml"
     },
     {
-        "merged": "G:\\Projects\\AndroidStudioProjects\\IM\\app\\build\\intermediates\\res\\merged\\debug\\layout_main.xml.flat",
-        "source": "G:\\Projects\\AndroidStudioProjects\\IM\\app\\src\\main\\res\\layout\\main.xml"
-    },
-    {
         "merged": "G:\\Projects\\AndroidStudioProjects\\IM\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v24_ic_launcher_foreground.xml.flat",
         "source": "G:\\Projects\\AndroidStudioProjects\\IM\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v24\\ic_launcher_foreground.xml"
     },

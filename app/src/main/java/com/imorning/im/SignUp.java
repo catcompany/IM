@@ -99,23 +99,23 @@ public class SignUp extends Activity {
                                             passwordText.getText().toString(),
                                             eMailText.getText().toString());
 
-                                    handler.post(new Runnable() {
-
-                                        public void run() {
-                                            if (result.equals(SERVER_RES_RES_SIGN_UP_SUCCESFULL)) {
-                                                Toast.makeText(getApplicationContext(), R.string.signup_successfull, Toast.LENGTH_LONG).show();
-                                                //showDialog(SIGN_UP_SUCCESSFULL);
-                                                finish();
-                                            } else if (result.equals(SERVER_RES_SIGN_UP_USERNAME_CRASHED)) {
-                                                Toast.makeText(getApplicationContext(), R.string.signup_username_crashed, Toast.LENGTH_LONG).show();
-                                                //showDialog(SIGN_UP_USERNAME_CRASHED);
-                                            } else  //if (result.equals(SERVER_RES_SIGN_UP_FAILED))
-                                            {
-                                                Toast.makeText(getApplicationContext(), R.string.signup_failed, Toast.LENGTH_LONG).show();
-                                                //showDialog(SIGN_UP_FAILED);
-                                            }
+                                    handler.post(() -> {
+                                        if (result == null) {
+                                            Toast.makeText(getApplicationContext(), "Sign up failed.", Toast.LENGTH_LONG).show();
+                                            return;
                                         }
-
+                                        if (result.equals(SERVER_RES_RES_SIGN_UP_SUCCESFULL)) {
+                                            Toast.makeText(getApplicationContext(), R.string.signup_successfull, Toast.LENGTH_LONG).show();
+                                            //showDialog(SIGN_UP_SUCCESSFULL);
+                                            finish();
+                                        } else if (result.equals(SERVER_RES_SIGN_UP_USERNAME_CRASHED)) {
+                                            Toast.makeText(getApplicationContext(), R.string.signup_username_crashed, Toast.LENGTH_LONG).show();
+                                            //showDialog(SIGN_UP_USERNAME_CRASHED);
+                                        } else  //if (result.equals(SERVER_RES_SIGN_UP_FAILED))
+                                        {
+                                            Toast.makeText(getApplicationContext(), R.string.signup_failed, Toast.LENGTH_LONG).show();
+                                            //showDialog(SIGN_UP_FAILED);
+                                        }
                                     });
                                 }
 
