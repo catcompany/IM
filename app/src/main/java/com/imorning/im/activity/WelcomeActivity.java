@@ -30,24 +30,21 @@ public class WelcomeActivity extends Activity {
 	}
 
 	private void init() {
-		mImageView.postDelayed(new Runnable() {
-			@Override
-			public void run() {
+		mImageView.postDelayed(() -> {
+			SpUtil.getInstance();
+			sp = SpUtil.getSharePerference(mContext);
+			SpUtil.getInstance();
+			boolean isFirst = SpUtil.isFirst(sp);
+			if (!isFirst) {
 				SpUtil.getInstance();
-				sp = SpUtil.getSharePerference(mContext);
-				SpUtil.getInstance();
-				boolean isFirst = SpUtil.isFirst(sp);
-				if (!isFirst) {
-					SpUtil.getInstance();
-					SpUtil.setBooleanSharedPerference(sp,"isFirst", true);
-					Intent intent = new Intent(mContext, LoginActivity.class);
-					startActivity(intent);
-				} else {
-					Intent intent = new Intent(mContext, LoginActivity.class);
-					startActivity(intent);
-				}
-				finish();
+				SpUtil.setBooleanSharedPerference(sp,"isFirst", true);
+				Intent intent = new Intent(mContext, LoginActivity.class);
+				startActivity(intent);
+			} else {
+				Intent intent = new Intent(mContext, LoginActivity.class);
+				startActivity(intent);
 			}
+			finish();
 		},2000);
 		
 	}
