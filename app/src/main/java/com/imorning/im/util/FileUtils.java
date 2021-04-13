@@ -31,11 +31,12 @@ public class FileUtils {
 	 * @param path
 	 *            目录路径
 	 */
-	public static void createDirFile(String path) {
+	public static boolean createDirFile(String path) {
 		File dir = new File(path);
 		if (!dir.exists()) {
-			dir.mkdirs();
+			return dir.mkdirs();
 		}
+		return false;
 	}
 
 	/**

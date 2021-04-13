@@ -1,7 +1,6 @@
 package com.imorning.im.activity.register;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -25,8 +24,7 @@ import com.imorning.im.view.HeaderLayout.HeaderStyle;
 
 import java.util.Date;
 
-public class RegisterActivity extends BaseActivity implements OnClickListener,
-        onNextActionListener {
+public class RegisterActivity extends BaseActivity implements OnClickListener, onNextActionListener {
 
     private HeaderLayout mHeaderLayout;
     private ViewFlipper mVfFlipper;
@@ -56,7 +54,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
 
     @Override
     protected void onDestroy() {
-        PhotoUtils.deleteImageFile();
+        PhotoUtils.deleteImageFile(RegisterActivity.this);
         super.onDestroy();
     }
 
@@ -127,8 +125,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
                     String[] proj = {MediaColumns.DATA};
                     Cursor cursor = managedQuery(uri, proj, null, null, null);
                     if (cursor != null) {
-                        int column_index = cursor
-                                .getColumnIndexOrThrow(MediaColumns.DATA);
+                        int column_index = cursor.getColumnIndexOrThrow(MediaColumns.DATA);
                         if (cursor.getCount() > 0 && cursor.moveToFirst()) {
                             String path = cursor.getString(column_index);
                             Bitmap bitmap = BitmapFactory.decodeFile(path);
@@ -149,7 +146,6 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
                     if (PhotoUtils.bitmapIsLarge(bitmap)) {
                         PhotoUtils.cropPhoto(this, this, path);
                     } else {
-                        //mStepPhoto.setUserPhoto(bitmap);
                         mStepPhoto.setUserPhoto(PhotoUtils.compressImage(bitmap));
                     }
                 }
@@ -161,7 +157,6 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
                     if (path != null) {
                         Bitmap bitmap = BitmapFactory.decodeFile(path);
                         if (bitmap != null) {
-                            //mStepPhoto.setUserPhoto(bitmap);
                             mStepPhoto.setUserPhoto(PhotoUtils.compressImage(bitmap));
                         }
                     }

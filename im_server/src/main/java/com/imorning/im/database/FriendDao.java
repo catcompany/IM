@@ -15,7 +15,6 @@ public class FriendDao {
 
     public static ArrayList<User> getFriend(int id) {
         ArrayList<User> list = new ArrayList<>();
-        // TODO: 2021/4/13 修改数据库表名
         String sql0 = String.format("use %s", ServerDatabaseInfo.tableName);
         String sql1 = "select * " +
                 "from friendlist as f left outer join user as u " +

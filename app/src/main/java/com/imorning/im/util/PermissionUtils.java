@@ -19,11 +19,11 @@ public class PermissionUtils {
         context = mContext;
 
         String[] permissionLists = new String[]{
+                Permission.ACCESS_FINE_LOCATION,
+                Permission.ACCESS_COARSE_LOCATION,
+                Permission.CAMERA,
                 Permission.NOTIFICATION_SERVICE,
                 Permission.WRITE_EXTERNAL_STORAGE,
-                Permission.CAMERA,
-                Permission.ACCESS_COARSE_LOCATION,
-                Permission.ACCESS_FINE_LOCATION
         };
         XXPermissions.with(mContext)
                 .permission(permissionLists)

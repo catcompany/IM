@@ -1,5 +1,6 @@
 package com.imorning.im.activity.register;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -144,6 +145,7 @@ public class StepPhoto extends RegisterStep implements OnClickListener {
         return false;
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

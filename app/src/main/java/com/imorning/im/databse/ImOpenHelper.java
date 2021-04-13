@@ -40,7 +40,6 @@ public class ImOpenHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// TODO: 2021/4/12 处理数据库升级操作
 	}
 
 }

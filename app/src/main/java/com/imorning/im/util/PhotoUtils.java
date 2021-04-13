@@ -17,11 +17,14 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+
+import androidx.core.content.FileProvider;
 
 import com.imorning.im.R;
 import com.imorning.im.activity.imagefactory.ImageFactoryActivity;
@@ -44,11 +47,14 @@ public class PhotoUtils {
     public static final int INTENT_REQUEST_CODE_CROP = 2;
     // 滤镜图片的RequestCode
     public static final int INTENT_REQUEST_CODE_FLITER = 3;
+
     // 图片在SD卡中的缓存路径
-    private static final String IMAGE_PATH = Environment
-            .getExternalStorageDirectory().toString()
-            + File.separator
-            + "immomo" + File.separator + "Images" + File.separator;
+    public static String getImagePath(Context context) {
+        if (context == null) {
+            return Environment.getExternalStorageDirectory().getAbsolutePath();
+        }
+        return context.getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath();
+    }
 
     /**
      * 通过手机相册获取图片
@@ -64,17 +70,26 @@ public class PhotoUtils {
     /**
      * 通过手机照相获取图片
      *
-     * @param activity
+     * @param activity 上下文
      * @return 照相后图片的路径
      */
     public static String takePicture(Activity activity) {
-        FileUtils.createDirFile(IMAGE_PATH);
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        String path = IMAGE_PATH + UUID.randomUUID().toString() + "jpg";
-        File file = FileUtils.createNewFile(path);
-        if (file != null) {
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+        if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            return null;
         }
+        FileUtils.createDirFile(getImagePath(activity));
+        File imageFile = new File(activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
+        String path = imageFile.getAbsolutePath();
+        // 启动系统相机
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        Uri camera_uri;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            camera_uri = FileProvider.getUriForFile(activity, "com.imorning.im.fileprovider", imageFile);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        } else {
+            camera_uri = Uri.fromFile(imageFile);
+        }
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, camera_uri);
         activity.startActivityForResult(intent, INTENT_REQUEST_CODE_CAMERA);
         return path;
     }
@@ -90,8 +105,7 @@ public class PhotoUtils {
         Intent intent = new Intent(context, ImageFactoryActivity.class);
         if (path != null) {
             intent.putExtra("path", path);
-            intent.putExtra(ImageFactoryActivity.TYPE,
-                    ImageFactoryActivity.CROP);
+            intent.putExtra(ImageFactoryActivity.TYPE, ImageFactoryActivity.CROP);
         }
         activity.startActivityForResult(intent, INTENT_REQUEST_CODE_CROP);
     }
@@ -103,13 +117,11 @@ public class PhotoUtils {
      * @param activity
      * @param path     需要滤镜的图片路径
      */
-    public static void fliterPhoto(Context context, Activity activity,
-                                   String path) {
+    public static void fliterPhoto(Context context, Activity activity, String path) {
         Intent intent = new Intent(context, ImageFactoryActivity.class);
         if (path != null) {
             intent.putExtra("path", path);
-            intent.putExtra(ImageFactoryActivity.TYPE,
-                    ImageFactoryActivity.FLITER);
+            intent.putExtra(ImageFactoryActivity.TYPE, ImageFactoryActivity.FLITER);
         }
         activity.startActivityForResult(intent, INTENT_REQUEST_CODE_FLITER);
     }
@@ -117,10 +129,10 @@ public class PhotoUtils {
     /**
      * 删除图片缓存目录
      */
-    public static void deleteImageFile() {
-        File dir = new File(IMAGE_PATH);
+    public static void deleteImageFile(Context context) {
+        File dir = new File(getImagePath(context));
         if (dir.exists()) {
-            FileUtils.delFolder(IMAGE_PATH);
+            FileUtils.delFolder(getImagePath(context));
         }
     }
 
@@ -204,7 +216,7 @@ public class PhotoUtils {
      * @param bitmap 图片bitmap对象
      */
     public static Bundle getBitmapWidthAndHeight(Bitmap bitmap) {
-        Bundle bundle = null;
+        Bundle bundle;
         if (bitmap != null) {
             bundle = new Bundle();
             bundle.putInt("width", bitmap.getWidth());
@@ -260,15 +272,14 @@ public class PhotoUtils {
      * @param bitmap 图片的bitmap对象
      * @return 保存的路径
      */
-    public static String savePhotoToSDCard(Bitmap bitmap) {
+    public static String savePhotoToSDCard(Context context, Bitmap bitmap) {
         if (!FileUtils.isSdcardExist()) {
             return null;
         }
         FileOutputStream fileOutputStream = null;
-        FileUtils.createDirFile(IMAGE_PATH);
-
+        FileUtils.createDirFile(getImagePath(context));
         String fileName = UUID.randomUUID().toString() + ".jpg";
-        String newFilePath = IMAGE_PATH + fileName;
+        String newFilePath = getImagePath(context) + fileName;
         File file = FileUtils.createNewFile(newFilePath);
         if (file == null) {
             return null;
@@ -505,9 +516,9 @@ public class PhotoUtils {
      */
     public static byte[] getBytes(Bitmap bitmap) {
         // 实例化字节数组输出流
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 0, baos);// 压缩位图
-        return baos.toByteArray();// 创建分配字节数组
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, byteArrayOutputStream);// 压缩位图
+        return byteArrayOutputStream.toByteArray();// 创建分配字节数组
     }
 
     /*
@@ -521,6 +532,9 @@ public class PhotoUtils {
     }
 
     public static Bitmap getBitmap(Context context, byte[] data) {
+        if (data != null) {
+            return getBitmap(data);
+        }
         BitmapFactory.Options options = new BitmapFactory.Options();
         TypedValue value = new TypedValue();
         context.getResources().openRawResource(R.raw.default_user, value);
@@ -532,20 +546,20 @@ public class PhotoUtils {
     // 压缩图片大小
     public static Bitmap compressImage(Bitmap image) {
 
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);// 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);// 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
         int options = 100;
-        while (baos.toByteArray().length / 1024 > 20 && options >= 1) { // 循环判断如果压缩后图片是否大于100kb,大于继续压缩
-            baos.reset();// 重置baos即清空baos
-            image.compress(Bitmap.CompressFormat.JPEG, options, baos);// 这里压缩options%，把压缩后的数据存放到baos中
+        while (byteArrayOutputStream.toByteArray().length / 1024 > 20 && options >= 1) { // 循环判断如果压缩后图片是否大于100kb,大于继续压缩
+            byteArrayOutputStream.reset();// 重置byteArrayOutputStream 即清空byteArrayOutputStream
+            image.compress(Bitmap.CompressFormat.JPEG, options, byteArrayOutputStream);// 这里压缩options%，把压缩后的数据存放到baos中
             options /= 2;// 每次都减少5
         }
-        ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());// 把压缩后的数据baos存放到ByteArrayInputStream中
-        Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);// 把ByteArrayInputStream数据生成图片
+        ByteArrayInputStream isBm = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());// 把压缩后的数据baos存放到ByteArrayInputStream中
 
         //return ThumbnailUtils.extractThumbnail(image, 120, 120);
-        return bitmap;
+        return BitmapFactory.decodeStream(isBm, null, null);
 
     }
+
 
 }

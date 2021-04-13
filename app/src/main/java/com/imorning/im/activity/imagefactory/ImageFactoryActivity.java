@@ -2,8 +2,6 @@ package com.imorning.im.activity.imagefactory;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ViewFlipper;
 
@@ -68,26 +66,22 @@ public class ImageFactoryActivity extends BaseActivity {
                 }
             }
         });
-        mBtnRight.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if (mIndex == 1) {
-                    mNewPath = PhotoUtils.savePhotoToSDCard(mImageFactoryFliter.getBitmap());
-                    Intent intent = new Intent();
-                    intent.putExtra("path", mNewPath);
-                    setResult(RESULT_OK, intent);
-                    finish();
-                } else {
-                    mNewPath = PhotoUtils.savePhotoToSDCard(mImageFactoryCrop.cropAndSave());
-                    mIndex = 1;
-                    initImageFactory();
-                    mVfFlipper.setInAnimation(ImageFactoryActivity.this,
-                            R.anim.push_left_in);
-                    mVfFlipper.setOutAnimation(ImageFactoryActivity.this,
-                            R.anim.push_left_out);
-                    mVfFlipper.showNext();
-                }
+        mBtnRight.setOnClickListener(v -> {
+            if (mIndex == 1) {
+                mNewPath = PhotoUtils.savePhotoToSDCard(ImageFactoryActivity.this, mImageFactoryFliter.getBitmap());
+                Intent intent = new Intent();
+                intent.putExtra("path", mNewPath);
+                setResult(RESULT_OK, intent);
+                finish();
+            } else {
+                mNewPath = PhotoUtils.savePhotoToSDCard(ImageFactoryActivity.this, mImageFactoryCrop.cropAndSave());
+                mIndex = 1;
+                initImageFactory();
+                mVfFlipper.setInAnimation(ImageFactoryActivity.this,
+                        R.anim.push_left_in);
+                mVfFlipper.setOutAnimation(ImageFactoryActivity.this,
+                        R.anim.push_left_out);
+                mVfFlipper.showNext();
             }
         });
     }

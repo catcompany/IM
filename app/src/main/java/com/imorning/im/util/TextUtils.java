@@ -16,7 +16,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
 
@@ -70,7 +69,7 @@ public class TextUtils {
      *
      * @param month 月
      * @param day   日
-     * @return
+     * @return 星座
      */
     public static String getConstellation(int month, int day) {
         month++;
@@ -109,7 +108,7 @@ public class TextUtils {
      * @param year  年
      * @param month 月
      * @param day   日
-     * @return
+     * @return 年龄
      */
     public static int getAge(int year, int month, int day) {
         int age = 0;
@@ -159,7 +158,7 @@ public class TextUtils {
                         is = null;
                     }
                 } catch (IOException e) {
-
+                    e.printStackTrace();
                 }
             }
         }
@@ -173,23 +172,31 @@ public class TextUtils {
      * @return
      */
     public static String readTextFile(InputStream inputStream) {
-        String readedStr = "";
+        StringBuilder readedStr = new StringBuilder();
         BufferedReader br;
         try {
             br = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
             String tmp;
             while ((tmp = br.readLine()) != null) {
-                readedStr += tmp;
+                readedStr.append(tmp);
             }
             br.close();
             inputStream.close();
-        } catch (UnsupportedEncodingException e) {
-            return null;
         } catch (IOException e) {
+            e.printStackTrace();
             return null;
         }
 
-        return readedStr;
+        return readedStr.toString();
     }
 
+    /**
+     * 检测指定路径是否为空（存在）
+     *
+     * @param path 路径
+     * @return true/false 空/非空
+     */
+    public static boolean isEmpty(String path) {
+        return android.text.TextUtils.isEmpty(path);
+    }
 }
