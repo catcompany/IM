@@ -57,8 +57,7 @@ public class PhotoUtils {
      */
     public static void selectPhoto(Activity activity) {
         Intent intent = new Intent(Intent.ACTION_PICK, null);
-        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                "image/*");
+        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
         activity.startActivityForResult(intent, INTENT_REQUEST_CODE_ALBUM);
     }
 
@@ -515,7 +514,19 @@ public class PhotoUtils {
      * byte[]转换成Bitmap
      */
     public static Bitmap getBitmap(byte[] data) {
+        if (data == null) {
+            return null;
+        }
         return BitmapFactory.decodeByteArray(data, 0, data.length);// 从字节数组解码位图
+    }
+
+    public static Bitmap getBitmap(Context context, byte[] data) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        TypedValue value = new TypedValue();
+        context.getResources().openRawResource(R.raw.default_user, value);
+        options.inTargetDensity = value.density;
+        options.inScaled = false;
+        return BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_tab_friend, options);
     }
 
     // 压缩图片大小

@@ -1,51 +1,50 @@
 package com.imorning.im.activity;
 
 
-import com.imorning.im.R;
-import com.imorning.im.util.SpUtil;
-
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageView;
 
-public class WelcomeActivity extends Activity {
-	private Context mContext;
-	private ImageView mImageView;
-	private SharedPreferences sp;
+import androidx.appcompat.app.AppCompatActivity;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_welcome);
-		mContext = this;
-		findView();
-		init();
-	}
+import com.imorning.im.R;
+import com.imorning.im.util.PermissionUtils;
+import com.imorning.im.util.SpUtil;
 
-	private void findView() {
-		mImageView = (ImageView) findViewById(R.id.iv_welcome);
-	}
+public class WelcomeActivity extends AppCompatActivity {
+    private Context mContext;
+    private ImageView mImageView;
+    private SharedPreferences sp;
 
-	private void init() {
-		mImageView.postDelayed(() -> {
-			SpUtil.getInstance();
-			sp = SpUtil.getSharePerference(mContext);
-			SpUtil.getInstance();
-			boolean isFirst = SpUtil.isFirst(sp);
-			if (!isFirst) {
-				SpUtil.getInstance();
-				SpUtil.setBooleanSharedPerference(sp,"isFirst", true);
-				Intent intent = new Intent(mContext, LoginActivity.class);
-				startActivity(intent);
-			} else {
-				Intent intent = new Intent(mContext, LoginActivity.class);
-				startActivity(intent);
-			}
-			finish();
-		},2000);
-		
-	}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_welcome);
+        mContext = this;
+        findView();
+        init();
+    }
+
+    private void findView() {
+        mImageView = (ImageView) findViewById(R.id.iv_welcome);
+    }
+
+    private void init() {
+        mImageView.postDelayed(() -> {
+            SpUtil.getInstance();
+            sp = SpUtil.getSharePerference(mContext);
+            SpUtil.getInstance();
+            boolean isFirst = SpUtil.isFirst(sp);
+            if (!isFirst) {
+                SpUtil.getInstance();
+                SpUtil.setBooleanSharedPerference(sp, "isFirst", true);
+            }
+            Intent intent = new Intent(mContext, LoginActivity.class);
+            startActivity(intent);
+            WelcomeActivity.this.finish();
+        }, 2000);
+
+    }
 }
