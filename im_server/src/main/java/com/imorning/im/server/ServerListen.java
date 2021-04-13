@@ -1,7 +1,7 @@
-package com.imorning.im_server.server;
+package com.imorning.im.server;
 
-import com.imorning.im_server.client.ClientActivity;
-import com.imorning.im_server.database.ServerDatabaseInfo;
+import com.imorning.im.client.ClientActivity;
+import com.imorning.im.database.ServerDatabaseInfo;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -15,27 +15,22 @@ public class ServerListen {
     private ServerSocket server;
 
     public static void main(String[] args) {
-
+        System.out.printf("start server on %d%n", System.currentTimeMillis());
         new ServerListen().begin();
     }
 
     public void begin() {
         try {
-            int PORT = ServerDatabaseInfo.port;
-            server = new ServerSocket(PORT);
-            System.out.println("服务器已经启动...");
+            server = new ServerSocket(ServerDatabaseInfo.port);
         } catch (IOException e) {
-            System.out.println("服务器启动失败");
             e.printStackTrace();
         }
         while (true) {
             try {
                 Socket client = server.accept();
                 new ClientActivity(this, client);
-                System.out.println(client.isConnected());
             } catch (IOException e) {
                 e.printStackTrace();
-                System.out.println(e.getMessage());
                 break;
             }
         }

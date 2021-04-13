@@ -1,8 +1,8 @@
-package com.imorning.im_server.client;
+package com.imorning.im.client;
 
 import java.util.concurrent.TimeUnit;
 
-import com.imorning.im_server.bean.TranObject;
+import com.imorning.im.bean.TranObject;
 
 public class ClientSendThread implements Runnable {
 	private ClientActivity mClient;

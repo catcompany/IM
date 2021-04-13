@@ -62,7 +62,6 @@ public class ChatActivity extends BaseActivity {
 
     }
 
-	// TODO: 2021/4/12 这里需要处理一下
     @SuppressLint("HandlerLeak")
 	@Override
     protected void initEvents() {

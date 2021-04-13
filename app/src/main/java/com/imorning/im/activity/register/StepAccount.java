@@ -70,7 +70,7 @@ public class StepAccount extends RegisterStep implements TextWatcher {
 					}
 					UserAction.accountVerify(mAccount);
 					while (!mIsReceived) {
-						System.out.println("阻塞中");
+						//System.out.println("阻塞中");
 					}// 如果没收到的话就会一直阻塞;
 					mNetService.closeConnection();
 					System.out.println(mReceivedInfo.getResult());

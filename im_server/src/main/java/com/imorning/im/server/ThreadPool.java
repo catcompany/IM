@@ -1,4 +1,4 @@
-package com.imorning.im_server.server;
+package com.imorning.im.server;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;

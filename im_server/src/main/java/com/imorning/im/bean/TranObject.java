@@ -1,8 +1,8 @@
-package com.imorning.im_server.bean;
+package com.imorning.im.bean;
 
 import java.io.Serializable;
 
-import com.imorning.im_server.global.Result;
+import com.imorning.im.global.Result;
 
 public class TranObject implements Serializable {
 

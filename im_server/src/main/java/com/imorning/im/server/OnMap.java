@@ -1,6 +1,6 @@
-package com.imorning.im_server.server;
+package com.imorning.im.server;
 
-import com.imorning.im_server.client.ClientActivity;
+import com.imorning.im.client.ClientActivity;
 
 import java.util.HashMap;
 

@@ -1,4 +1,4 @@
-package com.imorning.im_server.global;
+package com.imorning.im.global;
 
 public enum Result {
 	ACCOUNT_EXISTED,

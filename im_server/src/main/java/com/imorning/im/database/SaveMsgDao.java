@@ -1,10 +1,10 @@
-package com.imorning.im_server.database;
+package com.imorning.im.database;
 
-import com.imorning.im_server.bean.ChatEntity;
-import com.imorning.im_server.bean.TranObject;
-import com.imorning.im_server.bean.TranObjectType;
-import com.imorning.im_server.bean.User;
-import com.imorning.im_server.global.Result;
+import com.imorning.im.bean.ChatEntity;
+import com.imorning.im.bean.TranObject;
+import com.imorning.im.bean.TranObjectType;
+import com.imorning.im.bean.User;
+import com.imorning.im.global.Result;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -85,7 +85,7 @@ public class SaveMsgDao {
             ps.execute();
             con.commit();
         } catch (SQLException e) {
-            System.out.println("正在回滚");
+            //System.out.println("正在回滚");
             try {
                 con.rollback();
             } catch (SQLException e1) {

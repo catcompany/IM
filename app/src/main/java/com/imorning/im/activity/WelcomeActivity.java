@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.widget.ImageView;
 
 public class WelcomeActivity extends Activity {
-	protected static final String TAG = "WelcomeActivity";
 	private Context mContext;
 	private ImageView mImageView;
 	private SharedPreferences sp;
@@ -40,16 +39,14 @@ public class WelcomeActivity extends Activity {
 				boolean isFirst = SpUtil.isFirst(sp);
 				if (!isFirst) {
 					SpUtil.getInstance();
-					SpUtil.setBooleanSharedPerference(sp,
-							"isFirst", true);
+					SpUtil.setBooleanSharedPerference(sp,"isFirst", true);
 					Intent intent = new Intent(mContext, LoginActivity.class);
 					startActivity(intent);
-					finish();
 				} else {
 					Intent intent = new Intent(mContext, LoginActivity.class);
 					startActivity(intent);
-					finish();
 				}
+				finish();
 			}
 		},2000);
 		

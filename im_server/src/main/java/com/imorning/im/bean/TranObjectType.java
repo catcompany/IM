@@ -1,4 +1,4 @@
-package com.imorning.im_server.bean;
+package com.imorning.im.bean;
 
 /**
  * 传输对象类型

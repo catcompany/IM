@@ -10,8 +10,8 @@ import java.net.UnknownHostException;
 public class NetConnect {
 
 	// TODO: 2021/4/12 绑定服务器
-    private static final String SERVER_IP = "imserver.gz2vip.idcfengye.com";
-    private static final int SERVER_PORT = 80;
+    private static final String SERVER_IP = "192.168.1.107";
+    private static final int SERVER_PORT = 1124;
     private Socket mClientSocket = null;
     private boolean mIsConnected = false;
 
