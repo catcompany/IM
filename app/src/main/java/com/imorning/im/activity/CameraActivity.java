@@ -37,10 +37,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+
 /**
- * ERP_LXKUN_JAK on 2020/10/22
- * Current project HaoRuiDoctor
- * Annotations ：相机相册裁剪图片操作
+ * 也许没用了
  */
 
 public class CameraActivity extends AppCompatActivity {
@@ -188,7 +187,8 @@ public class CameraActivity extends AppCompatActivity {
                 mCutFile = imgFile;
             }
 
-        } else { // 裁剪的图片保存在take_photo中
+        } else {
+            // 裁剪的图片保存在take_photo中
             String time = new SimpleDateFormat("yyyyMMddHHmmss", Locale.CHINA).format(new Date());
             mCutFile = new File(Environment.getExternalStorageDirectory() + "/take_photo/", time + ".jpg");
             if (!mCutFile.getParentFile().exists()) {

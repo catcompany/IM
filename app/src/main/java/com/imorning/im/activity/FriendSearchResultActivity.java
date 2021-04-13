@@ -2,11 +2,9 @@ package com.imorning.im.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.imorning.im.R;
@@ -37,68 +35,46 @@ public class FriendSearchResultActivity extends Activity {
     }
 
     private void initView() {
-        mListviewOfResults = (ListView) findViewById(R.id.friend_search_result_listview);
-        mTitleBarView = (TitleBarView) findViewById(R.id.title_bar);
+        mListviewOfResults = findViewById(R.id.friend_search_result_listview);
+        mTitleBarView = findViewById(R.id.title_bar);
         mTitleBarView.setCommonTitle(View.GONE, View.VISIBLE, View.GONE);
         mTitleBarView.setTitleText("查找好友结果");
     }
 
     private void initEvent() {
 
-
         mFriendList = ApplicationData.getInstance().getFriendSearched();
         System.out.println(mFriendList.size() + "friendSearch result");
 
         mListviewOfResults.setAdapter(new FriendSearchResultAdapter(FriendSearchResultActivity.this, mFriendList));
 
-        mListviewOfResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                User mySelf = ApplicationData.getInstance().getUserInfo();
-                requestee = mFriendList.get(position);
+        mListviewOfResults.setOnItemClickListener((parent, view, position, id) -> {
+            User mySelf = ApplicationData.getInstance().getUserInfo();
+            requestee = mFriendList.get(position);
 
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                        FriendSearchResultActivity.this);
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(FriendSearchResultActivity.this);
 
-                alertDialogBuilder.setTitle(null);
-                //System.out.println(mySelf.getId() +" "+requestee.getId());
-                if (mySelf.getId() == requestee.getId()) {
-                    alertDialogBuilder
-                            .setMessage("你不能添加自己为好友")
-                            .setCancelable(true)
-                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                }
-                            });
-                } else if (!hasFriend(ApplicationData.getInstance().getFriendList(), requestee)) {
-                    alertDialogBuilder
-                            .setMessage("确定发送请求？")
-                            .setCancelable(true)
-                            .setPositiveButton("是", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    UserAction.sendFriendRequest(Result.MAKE_FRIEND_REQUEST, requestee.getId());
-                                }
-                            })
-                            .setNegativeButton("否", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                }
-                            });
-                } else {
-                    alertDialogBuilder
-                            .setMessage("你们已经是好友")
-                            .setCancelable(true)
-                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                }
-                            });
-                }
-
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
+            alertDialogBuilder.setTitle(null);
+            if (mySelf.getId() == requestee.getId()) {
+                alertDialogBuilder
+                        .setMessage("你不能添加自己为好友")
+                        .setCancelable(true)
+                        .setPositiveButton("确定", (dialog, id1) -> dialog.cancel());
+            } else if (!hasFriend(ApplicationData.getInstance().getFriendList(), requestee)) {
+                alertDialogBuilder
+                        .setMessage("确定发送请求？")
+                        .setCancelable(true)
+                        .setPositiveButton("是", (dialog, id12) -> UserAction.sendFriendRequest(Result.MAKE_FRIEND_REQUEST, requestee.getId()))
+                        .setNegativeButton("否", (dialog, id13) -> dialog.cancel());
+            } else {
+                alertDialogBuilder
+                        .setMessage("你们已经是好友")
+                        .setCancelable(true)
+                        .setPositiveButton("确定", (dialog, id14) -> dialog.cancel());
             }
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
         });
 
 
@@ -107,7 +83,6 @@ public class FriendSearchResultActivity extends Activity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        //mInstance = null;
     }
 
     @Override

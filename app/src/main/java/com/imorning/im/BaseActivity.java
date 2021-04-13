@@ -38,6 +38,7 @@ public abstract class BaseActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         mNetWorkUtils = new NetWorkUtils(this);
         mLoadingDialog = new FlippingLoadingDialog(this, "请求提交中");
 

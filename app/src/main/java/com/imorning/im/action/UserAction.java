@@ -39,7 +39,6 @@ public class UserAction {
     public static void searchFriend(String message) throws IOException {
         TranObject t = new TranObject(message, TranObjectType.SEARCH_FRIEND);
         mNetService.send(t);
-
     }
 
     public static void sendFriendRequest(Result result, Integer id) {

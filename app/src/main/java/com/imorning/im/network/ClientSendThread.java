@@ -19,6 +19,7 @@ public class ClientSendThread {
 		
 	}
 
+	// TODO: 2021/4/13 此方法会造成android.os.NetworkOnMainThreadException，后续修改优化
 	public void sendMessage(TranObject t) throws IOException{
 		oos.writeObject(t);
 		oos.flush();

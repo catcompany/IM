@@ -16,23 +16,23 @@ Date: 2015-05-30 12:51:55
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for `friendlist`
+-- Table structure for `im_friendlist`
 -- ----------------------------
-DROP TABLE IF EXISTS `friendlist`;
-CREATE TABLE `friendlist` (
+DROP TABLE IF EXISTS `im_friendlist`;
+CREATE TABLE `im_friendlist` (
   `master` int(11) NOT NULL,
   `friendid` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of friendlist
+-- Records of im_friendlist
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `savemsg`
+-- Table structure for `im_msg`
 -- ----------------------------
-DROP TABLE IF EXISTS `savemsg`;
-CREATE TABLE `savemsg` (
+DROP TABLE IF EXISTS `im_msg`;
+CREATE TABLE `im_msg` (
   `sendid` int(11) NOT NULL,
   `getid` int(11) DEFAULT NULL,
   `msg` varchar(1000) DEFAULT NULL,
@@ -44,14 +44,14 @@ CREATE TABLE `savemsg` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of savemsg
+-- Records of im_msg
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `user`
+-- Table structure for `im_user`
 -- ----------------------------
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
+DROP TABLE IF EXISTS `im_user`;
+CREATE TABLE `im_user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '自动生成的ID',
   `account` varchar(18) NOT NULL,
   `gender` tinyint(4) DEFAULT NULL,

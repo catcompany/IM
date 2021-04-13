@@ -37,7 +37,6 @@ public class FriendListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContext = getActivity();
         mBaseView = inflater.inflate(R.layout.fragment_friendlist, null);
-        System.out.println("初始化friendListFragment");
         findView();
         init();
         return mBaseView;

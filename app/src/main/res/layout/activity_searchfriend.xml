@@ -33,7 +33,6 @@
         android:id="@+id/search_friend_by_name_btn_search"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/ll_user_info"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_marginTop="10dp"
