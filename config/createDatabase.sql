@@ -35,7 +35,7 @@ DROP TABLE IF EXISTS `im_msg`;
 CREATE TABLE `im_msg` (
   `sendid` int(11) NOT NULL,
   `getid` int(11) DEFAULT NULL,
-  `msg` varchar(1000) DEFAULT NULL,
+  `msg` varchar(3000) DEFAULT NULL,
   `trantype` tinyint(3) DEFAULT NULL,
   `time` varchar(30) DEFAULT NULL,
   `resulttype` tinyint(4) DEFAULT NULL,

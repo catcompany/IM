@@ -153,7 +153,7 @@ public class ClientActivity {
      */
     public void getOffLine() {
         mServer.closeClientByID(user.getId());
-        UserDao.updateIsOnline(user.getId(), 0);
+        UserDao.updateIsOnline(user.getId(), false);
     }
 
     /**
@@ -164,9 +164,10 @@ public class ClientActivity {
             mClient.close();// socket关闭后，他所在的流也都自动关闭
             mClientListen.close();
             mClientSend.close();
-            if (user.getId() != 0)
+            if (user.getId() != 0) {
                 getOffLine();
-            //System.out.println(user.getAccount() + "下线了...");
+                System.out.println(user.getAccount() + "下线了...");
+            }
         } catch (IOException e) {
             //System.out.println("关闭失败.....");
             e.printStackTrace();
@@ -203,8 +204,7 @@ public class ClientActivity {
             //System.out.println("添加好友成功....");
             // 向好友发起方 发送自己的信息
             tran.setObject(user);
-            ArrayList<User> friend = UserDao.selectFriendByAccountOrID(tran
-                    .getSendId());
+            ArrayList<User> friend = UserDao.selectFriendByAccountOrID(tran.getSendId());
             tran.setObject(friend.get(0));
             tran.setSendName(user.getUserName());
             // 向自己添加好友
@@ -226,8 +226,7 @@ public class ClientActivity {
      * 转发消息 将转发的消息发送到 服务器与该客户端连接的 发送队列中
      */
     public void sendFriend(TranObject tran) {
-        ClientActivity friendClient = null;
-        //System.out.println("包含要发送的那个好友吗？" + tran.getReceiveId()+ mServer.contatinId(tran.getReceiveId()));
+        ClientActivity friendClient;
         if (mServer.contatinId(tran.getReceiveId())) {
             friendClient = mServer.getClientByID(tran.getReceiveId());
             //System.out.println("将好友请求发给好友...");
@@ -240,13 +239,13 @@ public class ClientActivity {
 
     public void sendMessage(TranObject tran) {
         // 添加到好友的发送队列
-        //System.out.println("发送聊天信息....");
         sendFriend(tran);
     }
 
-    /******************************** 对发送队列的异步处理 ***********************************/
     /**
-     * 发送数据 如果是从好友那里发送来的 就先添加到队列 并发控制，因为同步性太强 否则直接发送； 属于发送线程
+     * 对发送队列的异步处理
+     * 发送数据
+     * 如果是从好友那里发送来的 就先添加到队列 并发控制，因为同步性太强 否则直接发送； 属于发送线程
      */
     public synchronized void insertQueue(TranObject tran) {
         sendQueue.add(tran);

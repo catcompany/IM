@@ -46,11 +46,10 @@ public class SaveMsgDao {
 
     }
 
-
     /**
      * 插入消息
      */
-    public static void insertSaveMsg(int myid, TranObject tran) {
+    public static void insertSaveMsg(int send_id, TranObject tran) {
         String sql0 = "use " + DataBaseConfig.DBNAME;
         String sql1 = "insert into " + DataBaseConfig.TABLE_MSG + "(sendid,getid,msg,trantype,time,resultType,messageType,sendname)" +
                 "values(?,?,?,?,?,?,?,?)";
@@ -69,23 +68,22 @@ public class SaveMsgDao {
             ps = Objects.requireNonNull(con).prepareStatement(sql0);
             ps.execute();
             ps = con.prepareStatement(sql1);
-            ps.setInt(1, myid);
-            ps.setInt(2, tran.getReceiveId());
+            ps.setInt(MSG_COLUMN.SEND_ID.value, send_id);
+            ps.setInt(MSG_COLUMN.GET_ID.value, tran.getReceiveId());
             //message信息，时间来自ChatEntity对象，否则在tran中
             if (tran.getTranType() == TranObjectType.MESSAGE) {
                 ChatEntity chatEntity = (ChatEntity) tran.getObject();
                 msg = chatEntity.getContent();
                 messageType = chatEntity.getMessageType();
-                ps.setString(5, chatEntity.getSendTime());
+                ps.setString(MSG_COLUMN.TIME.value, chatEntity.getSendTime());
             } else {
-                ps.setString(5, tran.getSendTime());
+                ps.setString(MSG_COLUMN.TIME.value, tran.getSendTime());
             }
-            ps.setString(3, msg);
-            ps.setInt(4, tintypeId.get(tran.getTranType()));
-
-            ps.setInt(6, resultId.get(tran.getResult()));
-            ps.setInt(7, messageType);
-            ps.setString(8, tran.getSendName());
+            ps.setString(MSG_COLUMN.MSG.value, msg);
+            ps.setInt(MSG_COLUMN.TRAN_TYPE.value, tintypeId.get(tran.getTranType()));
+            ps.setInt(MSG_COLUMN.RESULT_TYPE.value, resultId.get(tran.getResult()));
+            ps.setInt(MSG_COLUMN.MESSAGE_TYPE.value, messageType);
+            ps.setString(MSG_COLUMN.SEND_NAME.value, tran.getSendName());
             ps.execute();
             con.commit();
         } catch (SQLException e) {
@@ -137,7 +135,6 @@ public class SaveMsgDao {
     /**
      * 查询所有的离线消息
      */
-    // TODO: 2021/4/13 这里的语句有问题
     public static ArrayList<TranObject> selectMsg(int id) {
         ArrayList<TranObject> msgList = new ArrayList<>();
         String sq0 = "use " + DataBaseConfig.DBNAME;
@@ -183,4 +180,5 @@ public class SaveMsgDao {
         }
         return msgList;
     }
+
 }

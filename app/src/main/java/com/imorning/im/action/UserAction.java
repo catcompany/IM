@@ -61,6 +61,8 @@ public class UserAction {
     public static void sendMessage(ChatEntity message) {
         TranObject msgTranObject = new TranObject();
         msgTranObject.setTranType(TranObjectType.MESSAGE);
+        msgTranObject.setSendId(message.getSenderId());
+        msgTranObject.setSendTime(message.getSendTime());
         msgTranObject.setReceiveId(message.getReceiverId());
         msgTranObject.setSendName(ApplicationData.getInstance().getUserInfo().getUserName());
         msgTranObject.setObject(message);

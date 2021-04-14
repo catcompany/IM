@@ -85,22 +85,29 @@ public class ChatActivity extends BaseActivity {
         sendButton.setOnClickListener(v -> {
             String content = inputEdit.getText().toString();
             if (TextUtils.isEmpty(content)) return;
-            inputEdit.setText("");
-            ChatEntity chatMessage = new ChatEntity();
-            chatMessage.setContent(content);
-            chatMessage.setSenderId(ApplicationData.getInstance().getUserInfo().getId());
-            chatMessage.setReceiverId(friendId);
-            chatMessage.setMessageType(ChatEntity.SEND);
-            Date date = new Date();
-            SimpleDateFormat sdf = new SimpleDateFormat("MM-dd hh:mm:ss", Locale.getDefault());
-            String sendTime = sdf.format(date);
-            chatMessage.setSendTime(sendTime);
-            chatList.add(chatMessage);
-            chatMessageAdapter.notifyDataSetChanged();
-            chatMeessageListView.setSelection(chatList.size());
-            UserAction.sendMessage(chatMessage);
-            ImDB.getInstance(ChatActivity.this).saveChatMessage(chatMessage);
+            sendMsg(content);
         });
+    }
+
+    private void sendMsg(String content) {
+        inputEdit.setText("");
+
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd hh:mm:ss", Locale.getDefault());
+        String sendTime = sdf.format(date);
+
+        ChatEntity chatMessage = new ChatEntity();
+        chatMessage.setContent(content);
+        chatMessage.setSenderId(ApplicationData.getInstance().getUserInfo().getId());
+        chatMessage.setReceiverId(friendId);
+        chatMessage.setMessageType(ChatEntity.SEND);
+        chatMessage.setSendTime(sendTime);
+        chatList.add(chatMessage);
+        chatMessageAdapter.notifyDataSetChanged();
+        chatMeessageListView.setSelection(chatList.size());
+
+        UserAction.sendMessage(chatMessage);
+        ImDB.getInstance(ChatActivity.this).saveChatMessage(chatMessage);
     }
 
 }
