@@ -2,6 +2,7 @@ package com.imorning.im.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -9,131 +10,148 @@ import java.util.Date;
  */
 public class User implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private int id;
-	private String account;
-	private String userName;
-	private String password;
-	private Date birthday;
-	private int gender; // 0代表女生 1代表男生
-	private boolean isOnline;
-	private String location;
-	private byte[] photo;
-	private int age;
-	private String userBriefIntro;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    private int id;
+    private String account;
+    private String userName;
+    private String password;
+    private Date birthday;
+    private int gender; // 0代表女生 1代表男生
+    private boolean isOnline;
+    private String location;
+    private byte[] photo;
+    private int age;
+    private String userBriefIntro;
+    private ArrayList<User> friendList;
 
-	public String getUserBriefIntro() {
-		return userBriefIntro;
-	}
+    public User(String account, String username, String password,
+                Date birthday, int gender, byte[] photo) {
+        this.account = account;
+        this.userName = username;
+        this.password = password;
+        this.birthday = birthday;
+        this.gender = gender;
+        this.photo = photo;
+    }
 
-	public void setUserBriefIntro(String userBriefIntro) {
-		this.userBriefIntro = userBriefIntro;
-	}
+    public User() {
 
-	public int getAge() {
-		return age;
-	}
+    }
 
-	public void setAge(int age) {
-		this.age = age;
-	}
+    public String getUserBriefIntro() {
+        return userBriefIntro;
+    }
 
-	private ArrayList<User> friendList;
+    public void setUserBriefIntro(String userBriefIntro) {
+        this.userBriefIntro = userBriefIntro;
+    }
 
-	public ArrayList<User> getFriendList() {
-		return friendList;
-	}
+    public int getAge() {
+        return age;
+    }
 
-	public void setFriendList(ArrayList<User> friendList) {
-		this.friendList = friendList;
-	}
+    public void setAge(int age) {
+        this.age = age;
+    }
 
-	public User(String account, String username, String password,
-			Date birthday, int gender, byte[] photo) {
-		this.account = account;
-		this.userName = username;
-		this.password = password;
-		this.birthday = birthday;
-		this.gender = gender;
-		this.photo = photo;
-	}
+    public ArrayList<User> getFriendList() {
+        return friendList;
+    }
 
-	public User() {
+    public void setFriendList(ArrayList<User> friendList) {
+        this.friendList = friendList;
+    }
 
-	}
+    public byte[] getPhoto() {
+        return photo;
+    }
 
-	public byte[] getPhoto() {
-		return photo;
-	}
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
+    }
 
-	public void setPhoto(byte[] photo) {
-		this.photo = photo;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public String getAccount() {
+        return account;
+    }
 
-	public String getAccount() {
-		return account;
-	}
+    public void setAccount(String account) {
+        this.account = account;
+    }
 
-	public void setAccount(String account) {
-		this.account = account;
-	}
+    public String getUserName() {
+        return userName;
+    }
 
-	public String getUserName() {
-		return userName;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public Date getBirthday() {
+        return birthday;
+    }
 
-	public Date getBirthday() {
-		return birthday;
-	}
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
 
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
+    public int getGender() {
+        return gender;
+    }
 
-	public int getGender() {
-		return gender;
-	}
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
 
-	public void setGender(int gender) {
-		this.gender = gender;
-	}
+    public boolean isOnline() {
+        return isOnline;
+    }
 
-	public boolean isOnline() {
-		return isOnline;
-	}
- 
-	public void setIsOnline(boolean isOnline) {
-		this.isOnline = isOnline;
-	}
+    public void setIsOnline(boolean isOnline) {
+        this.isOnline = isOnline;
+    }
 
-	public String getLocation() {
-		return location;
-	}
+    public String getLocation() {
+        return location;
+    }
 
-	public void setLocation(String location) {
-		this.location = location;
-	}
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", account='" + account + '\'' +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", birthday=" + birthday +
+                ", gender=" + gender +
+                ", isOnline=" + isOnline +
+                ", location='" + location + '\'' +
+                ", photo=" + Arrays.toString(photo) +
+                ", age=" + age +
+                ", userBriefIntro='" + userBriefIntro + '\'' +
+                ", friendList=" + friendList +
+                '}';
+    }
 }

@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 public class TitleBarView extends RelativeLayout {
 
-	private static final String TAG = "TitleBarView";
 	private Context mContext;
 	private Button btnLeft;
 	private Button btnRight;
@@ -36,9 +35,9 @@ public class TitleBarView extends RelativeLayout {
 	
 	private void initView(){
 		LayoutInflater.from(mContext).inflate(R.layout.common_title_bar, this);
-		btnLeft=(Button) findViewById(R.id.title_btn_left);
-		btnRight=(Button) findViewById(R.id.title_btn_right);
-		tv_center=(TextView) findViewById(R.id.title_txt);
+		btnLeft= findViewById(R.id.title_btn_left);
+		btnRight= findViewById(R.id.title_btn_right);
+		tv_center= findViewById(R.id.title_txt);
 		
 	}
 	
@@ -61,8 +60,9 @@ public class TitleBarView extends RelativeLayout {
 	public void setBtnLeft(int txtRes){
 		btnLeft.setText(txtRes);
 	}
-	
-	
+
+
+	@SuppressLint("UseCompatLoadingForDrawables")
 	public void setBtnRight(int icon){
 		Drawable img=mContext.getResources().getDrawable(icon);
 		int height=SystemMethod.dip2px(mContext, 30);

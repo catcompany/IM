@@ -1,22 +1,22 @@
 package com.imorning.im.util;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.widget.Toast;
 
 import com.hjq.permissions.OnPermissionCallback;
 import com.hjq.permissions.Permission;
 import com.hjq.permissions.XXPermissions;
+import com.imorning.im.BaseActivity;
 
 import java.util.List;
 
 public class PermissionUtils {
 
     @SuppressLint("StaticFieldLeak")
-    private static Context context;
+    private static BaseActivity activity;
 
-    public static void requestPermission(Context mContext) {
-        context = mContext;
+    public static void requestPermission(BaseActivity activity) {
+        PermissionUtils.activity = activity;
 
         String[] permissionLists = new String[]{
                 Permission.ACCESS_FINE_LOCATION,
@@ -25,15 +25,13 @@ public class PermissionUtils {
                 Permission.NOTIFICATION_SERVICE,
                 Permission.WRITE_EXTERNAL_STORAGE,
         };
-        XXPermissions.with(mContext)
+        XXPermissions.with(activity)
                 .permission(permissionLists)
                 .request(new OnPermissionCallback() {
 
                     @Override
                     public void onGranted(List<String> permissions, boolean all) {
-                        if (all) {
-                            toast("获取权限成功");
-                        } else {
+                        if (!all) {
                             toast("获取部分权限成功，但部分权限未正常授予");
                         }
                     }
@@ -43,7 +41,7 @@ public class PermissionUtils {
                         if (never) {
                             toast("被永久拒绝授权，请手动授予权限");
                             // 如果是被永久拒绝就跳转到应用权限系统设置页面
-                            XXPermissions.startPermissionActivity(context, permissions);
+                            XXPermissions.startPermissionActivity(PermissionUtils.activity, permissions);
                         } else {
                             toast("获取权限失败");
                         }
@@ -53,6 +51,6 @@ public class PermissionUtils {
     }
 
     private static void toast(String msg) {
-        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+        Toast.makeText(activity, msg, Toast.LENGTH_LONG).show();
     }
 }

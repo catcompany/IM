@@ -21,8 +21,8 @@ public class UserDao {
      * 查询账号是否存在
      */
     public static boolean selectAccount(String account) {
-        String sql0 = "use " + ServerDatabaseInfo.DBNAME;
-        String sql1 = "select * from " + ServerDatabaseInfo.TABLE_USER + " where account=?";
+        String sql0 = "use " + DataBaseConfig.DBNAME;
+        String sql1 = "select * from " + DataBaseConfig.TABLE_USER + " where account=?";
         Connection con = DBPool.getConnection();
         try {
             Objects.requireNonNull(con).setAutoCommit(false);
@@ -37,32 +37,35 @@ public class UserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        DBPool.close(con);
+        if (con != null) {
+            DBPool.close(con);
+        }
         return false;
     }
 
     /**
      * 向数据库中添加账户
+     *
+     * @return 用户数
      */
     public static int insertInfo(User user) {
-        String sql0 = "use " + ServerDatabaseInfo.DBNAME;
-        String sql1 = "insert into " + ServerDatabaseInfo.TABLE_USER + " (account,name,photo,birthday,password,gender)"
+        String sql0 = "use " + DataBaseConfig.DBNAME;
+        String sql1 = "insert into " + DataBaseConfig.TABLE_USER + " (account,name,photo,birthday,password,gender)"
                 + " values(?,?,?,?,?,?)";
         Connection con = DBPool.getConnection();
         try {
-            con.setAutoCommit(false);
+            Objects.requireNonNull(con).setAutoCommit(false);
         } catch (SQLException e2) {
             e2.printStackTrace();
         }
         PreparedStatement ps;
         try {
-            ps = con.prepareStatement(sql0);
+            ps = Objects.requireNonNull(con).prepareStatement(sql0);
             ps.execute();
             ps = con.prepareStatement(sql1);
             ps.setString(1, user.getAccount());
             ps.setString(2, user.getUserName());
             ps.setBytes(3, user.getPhoto());
-            //System.out.println(user.getPhoto().length);
             ps.setDate(4, new java.sql.Date(user.getBirthday().getTime()));
             ps.setString(5, user.getPassword());
             ps.setInt(6, user.getGender());
@@ -71,7 +74,9 @@ public class UserDao {
         } catch (SQLException e) {
             try {
                 //System.out.println("插入数据库异常，正在进行回滚..");
-                con.rollback();
+                if (con != null) {
+                    con.rollback();
+                }
             } catch (SQLException e1) {
                 e1.printStackTrace();
             }
@@ -84,8 +89,8 @@ public class UserDao {
      * 得到最后一次插入的值
      */
     public static int getLastID(Connection con) {
-        String sql0 = "use " + ServerDatabaseInfo.DBNAME;
-        String sql1 = "select MAX(id) as ID from " + ServerDatabaseInfo.TABLE_USER;// 注意:使用MAX(ID) 必须加上 as
+        String sql0 = "use " + DataBaseConfig.DBNAME;
+        String sql1 = "select MAX(id) as ID from " + DataBaseConfig.TABLE_USER;// 注意:使用MAX(ID) 必须加上 as
         // id 翻译
         PreparedStatement ps;
         ResultSet rs;
@@ -110,8 +115,8 @@ public class UserDao {
      */
     public static boolean login(User user) {
         boolean isExisted = false;
-        String sql0 = "use " + ServerDatabaseInfo.DBNAME;
-        String sql1 = "select * from " + ServerDatabaseInfo.TABLE_USER + " where account=? and password=?";
+        String sql0 = "use " + DataBaseConfig.DBNAME;
+        String sql1 = "select * from " + DataBaseConfig.TABLE_USER + " where account=? and password=?";
         Connection con = DBPool.getConnection();
         PreparedStatement ps;
         ResultSet rs;
@@ -146,8 +151,11 @@ public class UserDao {
      * 更新在线状态
      */
     public static void updateIsOnline(int id, int isOnline) {
-        String sql0 = "use " + ServerDatabaseInfo.DBNAME;
-        String sql1 = "update " + ServerDatabaseInfo.TABLE_USER + " set isOnline=? where id=?";
+        if (id < 0) {
+            return;
+        }
+        String sql0 = "use " + DataBaseConfig.DBNAME;
+        String sql1 = "update " + DataBaseConfig.TABLE_USER + " set isOnline=? where id=?";
         Connection con = DBPool.getConnection();
         try {
             Objects.requireNonNull(con).setAutoCommit(false);
@@ -177,16 +185,29 @@ public class UserDao {
         }
     }
 
-    public static ArrayList<User> selectFriendByAccountOrID(Object condition) {
+    /**
+     * 更新在线状态
+     *
+     * @param id       用户id
+     * @param isOnline 是否在线
+     */
+    public static void updateIsOnline(int id, boolean isOnline) {
+        if (id < 0) {
+            return;
+        }
+        updateIsOnline(id, isOnline ? 1 : 0);
+    }
+
+    public static ArrayList<User> selectFriendByAccountOrID(Object accountOrId) {
         ArrayList<User> list = new ArrayList<>();
-        String sql0 = "use " + ServerDatabaseInfo.DBNAME;
+        String sql0 = "use " + DataBaseConfig.DBNAME;
         String sql1 = "";
         int conFlag = 0;// 默认是0 表示使用id查找 1为使用id
-        if (condition instanceof String) {
-            sql1 = "select * from " + ServerDatabaseInfo.TABLE_USER + " where account=?";
+        if (accountOrId instanceof String) {
+            sql1 = "select * from " + DataBaseConfig.TABLE_USER + " where account=?";
             conFlag = 1;
-        } else if (condition instanceof Integer)
-            sql1 = "select * from " + ServerDatabaseInfo.TABLE_USER + " where id=?";
+        } else if (accountOrId instanceof Integer)
+            sql1 = "select * from " + DataBaseConfig.TABLE_USER + " where id=?";
         Connection con = DBPool.getConnection();
         PreparedStatement ps;
         ResultSet rs;
@@ -195,9 +216,9 @@ public class UserDao {
             ps.execute();
             ps = con.prepareStatement(sql1);
             if (conFlag == 1)
-                ps.setString(1, (String) condition);
-            else if (condition instanceof Integer) {
-                ps.setInt(1, (Integer) condition);
+                ps.setString(1, (String) accountOrId);
+            else if (accountOrId instanceof Integer) {
+                ps.setInt(1, (Integer) accountOrId);
             }
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -219,13 +240,14 @@ public class UserDao {
             DBPool.close(con);
         }
         return list;
+        //return list.size() > 0 ? list : null;
     }
 
     public static ArrayList<User> selectFriendByMix(String[] mix) {
         ArrayList<User> list = new ArrayList<User>();
-        String sql0 = "use " + ServerDatabaseInfo.DBNAME;
+        String sql0 = "use " + DataBaseConfig.DBNAME;
         String sql1 = "select * "
-                + "from " + ServerDatabaseInfo.TABLE_USER
+                + "from " + DataBaseConfig.TABLE_USER
                 + " where ((YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5))) "
                 + "between ? and ? ";
         Connection con = DBPool.getConnection();
@@ -264,6 +286,5 @@ public class UserDao {
         }
         return list;
     }
-
 
 }

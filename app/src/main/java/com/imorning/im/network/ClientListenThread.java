@@ -13,14 +13,12 @@ import java.io.ObjectInputStream;
 import java.net.Socket;
 
 public class ClientListenThread extends Thread {
-    private Socket mSocket = null;
-    private Context mContext = null;
+    private Socket mSocket;
     private ObjectInputStream mOis;
 
     private boolean isStart = true;
 
-    public ClientListenThread(Context context, Socket socket) {
-        this.mContext = context;
+    public ClientListenThread(Socket socket) {
         this.mSocket = socket;
         try {
             mOis = new ObjectInputStream(mSocket.getInputStream());
@@ -39,17 +37,14 @@ public class ClientListenThread extends Thread {
             isStart = true;
             while (isStart) {
                 TranObject mReceived;
-                //System.out.println("开始接受服务器");
                 if (mOis == null) {
                     break;
                 }
                 mReceived = (TranObject) mOis.readObject();
-                System.out.println("接受成功");
-                System.out.println(mReceived.getTranType());
                 switch (mReceived.getTranType()) {
                     case REGISTER_ACCOUNT:
                         StepAccount.setRegisterInfo(mReceived, true);
-                        System.out.println("注册账号成功");
+                        //System.out.println("注册账号成功");
                         break;
                     case REGISTER:
                         StepPhoto.setRegisterInfo(mReceived, true);
@@ -58,7 +53,7 @@ public class ClientListenThread extends Thread {
                         ApplicationData.getInstance().loginMessageArrived(mReceived);
                         break;
                     case SEARCH_FRIEND:
-                        System.out.println("收到朋友查找结果");
+                        //System.out.println("收到朋友查找结果");
                         SearchFriendActivity.messageArrived(mReceived);
                         break;
                     case FRIEND_REQUEST:

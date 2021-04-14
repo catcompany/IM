@@ -26,9 +26,9 @@ public class ClientActivity {
     private final LinkedList<TranObject> sendQueue;
     private final ServerListen mServer; // 服务器
     private final User user;
-    private Socket mClient; // 客户端连接
     private final ClientListenThread mClientListen; // 客户端监听进程
     private final ClientSendThread mClientSend; // 客户端发送进程
+    private Socket mClient; // 客户端连接
     private ObjectOutputStream mOutput;
     private ObjectInputStream mInput;
 
@@ -185,7 +185,7 @@ public class ClientActivity {
             list = UserDao.selectFriendByMix(values);
         //System.out.println((String) tran.getObject());
         //System.out.println("发送客户端查找的好友列表...");
-        for (User value : list) System.out.println(value);
+        //for (User value : list) System.out.println(value);
         tran.setObject(list);
         send(tran);
     }
@@ -230,7 +230,7 @@ public class ClientActivity {
         //System.out.println("包含要发送的那个好友吗？" + tran.getReceiveId()+ mServer.contatinId(tran.getReceiveId()));
         if (mServer.contatinId(tran.getReceiveId())) {
             friendClient = mServer.getClientByID(tran.getReceiveId());
-            System.out.println("将好友请求发给好友...");
+            //System.out.println("将好友请求发给好友...");
             friendClient.insertQueue(tran);
         } else {
             SaveMsgDao.insertSaveMsg(user.getId(), tran);

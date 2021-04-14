@@ -51,8 +51,8 @@ public class SaveMsgDao {
      * 插入消息
      */
     public static void insertSaveMsg(int myid, TranObject tran) {
-        String sql0 = "use " + ServerDatabaseInfo.DBNAME;
-        String sql1 = "insert into " + ServerDatabaseInfo.TABLE_MSG + "(sendid,getid,msg,trantype,time,resultType,messageType,sendname)" +
+        String sql0 = "use " + DataBaseConfig.DBNAME;
+        String sql1 = "insert into " + DataBaseConfig.TABLE_MSG + "(sendid,getid,msg,trantype,time,resultType,messageType,sendname)" +
                 "values(?,?,?,?,?,?,?,?)";
         Connection con = DBPool.getConnection();
         try {
@@ -77,8 +77,9 @@ public class SaveMsgDao {
                 msg = chatEntity.getContent();
                 messageType = chatEntity.getMessageType();
                 ps.setString(5, chatEntity.getSendTime());
-            } else
+            } else {
                 ps.setString(5, tran.getSendTime());
+            }
             ps.setString(3, msg);
             ps.setInt(4, tintypeId.get(tran.getTranType()));
 
@@ -88,9 +89,10 @@ public class SaveMsgDao {
             ps.execute();
             con.commit();
         } catch (SQLException e) {
-            //System.out.println("正在回滚");
             try {
-                con.rollback();
+                if (con != null) {
+                    con.rollback();
+                }
             } catch (SQLException e1) {
                 e1.printStackTrace();
             }
@@ -102,9 +104,9 @@ public class SaveMsgDao {
      * 删除保存的离线信息
      */
     public static void deleteSaveMsg(int getid) {
-        String sql0 = "use " + ServerDatabaseInfo.DBNAME;
-        String sql1 = "delete from  " + ServerDatabaseInfo.TABLE_MSG +
-                "where getid=?";
+        String sql0 = "use " + DataBaseConfig.DBNAME;
+        String sql1 = "delete from  " + DataBaseConfig.TABLE_MSG +
+                " where getid=?";
         Connection con = DBPool.getConnection();
         PreparedStatement ps;
         try {
@@ -138,10 +140,10 @@ public class SaveMsgDao {
     // TODO: 2021/4/13 这里的语句有问题
     public static ArrayList<TranObject> selectMsg(int id) {
         ArrayList<TranObject> msgList = new ArrayList<>();
-        String sq0 = "use " + ServerDatabaseInfo.DBNAME;
-        String sql1 = "select * " +
-                "from " + ServerDatabaseInfo.TABLE_MSG +
-                "where getid=?";
+        String sq0 = "use " + DataBaseConfig.DBNAME;
+        String sql1 = "select * from "
+                + DataBaseConfig.TABLE_MSG +
+                " where getid=?";
         Connection con = DBPool.getConnection();
         PreparedStatement ps;
         ResultSet rs;

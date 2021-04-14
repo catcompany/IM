@@ -1,7 +1,7 @@
 package com.imorning.im.server;
 
 import com.imorning.im.client.ClientActivity;
-import com.imorning.im.database.ServerDatabaseInfo;
+import com.imorning.im.database.DataBaseConfig;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -11,16 +11,21 @@ import java.net.Socket;
  * 客户端使用 Scoket(ip,port);参数是服务器的ip和端口号，因为没有指定
  * 客户端套接字的准确ip和端口，所以服务器发往一台机器上的任一客户端的消息，其他 客户端都能收到。所以创建套接字时，最好指定套接字端口
  */
-public class ServerListen {
+public class ServerListen extends Thread{
+
     private ServerSocket server;
 
     public static void main(String[] args) {
-        //new ServerListen().begin();
+        ServerListen serverListen = new ServerListen();
+        serverListen.start();
     }
 
-    public void begin() {
+    @Override
+    public void run() {
+
+        super.run();
         try {
-            server = new ServerSocket(ServerDatabaseInfo.port);
+            server = new ServerSocket(DataBaseConfig.port);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -34,6 +39,7 @@ public class ServerListen {
             }
         }
     }
+
 
     /*
      * 获得在线用户

@@ -13,16 +13,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.fragment.app.FragmentActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.imorning.im.dialog.FlippingLoadingDialog;
 import com.imorning.im.util.NetWorkUtils;
+import com.imorning.im.util.TextUtils;
 import com.imorning.im.view.HandyTextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BaseActivity extends FragmentActivity {
+public abstract class BaseActivity extends AppCompatActivity {
     protected NetWorkUtils mNetWorkUtils;
     protected FlippingLoadingDialog mLoadingDialog;
 
@@ -33,7 +34,7 @@ public abstract class BaseActivity extends FragmentActivity {
     protected int mScreenHeight;
     protected float mDensity;
 
-    protected List<AsyncTask<Void, Void, Integer>> mAsyncTasks = new ArrayList<AsyncTask<Void, Void, Integer>>();
+    protected List<AsyncTask<Void, Void, Integer>> mAsyncTasks = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +52,9 @@ public abstract class BaseActivity extends FragmentActivity {
 
     @Override
     protected void onDestroy() {
-        clearAsyncTask();
         super.onDestroy();
+        clearAsyncTask();
+        BaseActivity.this.finish();
     }
 
     /**
@@ -79,9 +81,14 @@ public abstract class BaseActivity extends FragmentActivity {
     }
 
     protected void showLoadingDialog(String text) {
-        if (text != null) {
-            mLoadingDialog.setText(text);
-        }
+        if (TextUtils.isEmpty(text)) return;
+        showLoadingDialog(text, true);
+    }
+
+    protected void showLoadingDialog(String text, boolean cancelable) {
+        if (TextUtils.isEmpty(text)) return;
+        mLoadingDialog.setText(text);
+        mLoadingDialog.setCancelable(cancelable);
         mLoadingDialog.show();
     }
 
@@ -123,10 +130,8 @@ public abstract class BaseActivity extends FragmentActivity {
      * 显示自定义Toast提示(来自res)
      **/
     protected void showCustomToast(int resId) {
-        View toastRoot = LayoutInflater.from(BaseActivity.this).inflate(
-                R.layout.common_toast, null);
-        ((HandyTextView) toastRoot.findViewById(R.id.toast_text))
-                .setText(getString(resId));
+        View toastRoot = LayoutInflater.from(BaseActivity.this).inflate(R.layout.common_toast, null);
+        ((HandyTextView) toastRoot.findViewById(R.id.toast_text)).setText(getString(resId));
         Toast toast = new Toast(BaseActivity.this);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.setDuration(Toast.LENGTH_SHORT);
@@ -139,11 +144,10 @@ public abstract class BaseActivity extends FragmentActivity {
      **/
     protected void showCustomToast(String text) {
         @SuppressLint("InflateParams")
-        View toastRoot = LayoutInflater.from(BaseActivity.this).inflate(
-                R.layout.common_toast, null);
+        View toastRoot = LayoutInflater.from(BaseActivity.this).inflate(R.layout.common_toast, null);
         ((HandyTextView) toastRoot.findViewById(R.id.toast_text)).setText(text);
         Toast toast = new Toast(BaseActivity.this);
-        toast.setGravity(Gravity.CENTER, 0, 0);
+        //toast.setGravity(Gravity.CENTER, 0, 0);
         toast.setDuration(Toast.LENGTH_SHORT);
         toast.setView(toastRoot);
         toast.show();
@@ -205,8 +209,7 @@ public abstract class BaseActivity extends FragmentActivity {
      * 含有标题和内容的对话框
      **/
     protected AlertDialog showAlertDialog(String title, String message) {
-        return new AlertDialog.Builder(this).setTitle(title)
-                .setMessage(message).show();
+        return new AlertDialog.Builder(this).setTitle(title).setMessage(message).show();
     }
 
     /**

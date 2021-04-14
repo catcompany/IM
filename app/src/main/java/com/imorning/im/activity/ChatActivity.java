@@ -19,6 +19,7 @@ import com.imorning.im.adapter.ChatMessageAdapter;
 import com.imorning.im.bean.ApplicationData;
 import com.imorning.im.bean.ChatEntity;
 import com.imorning.im.databse.ImDB;
+import com.imorning.im.util.TextUtils;
 import com.imorning.im.view.TitleBarView;
 
 import java.text.SimpleDateFormat;
@@ -52,18 +53,18 @@ public class ChatActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        mTitleBarView = (TitleBarView) findViewById(R.id.title_bar);
+        mTitleBarView = findViewById(R.id.title_bar);
         mTitleBarView.setCommonTitle(View.GONE, View.VISIBLE, View.GONE);
         mTitleBarView.setTitleText("与" + friendName + "对话");
-        chatMeessageListView = (ListView) findViewById(R.id.chat_Listview);
-        sendButton = (Button) findViewById(R.id.chat_btn_send);
-        emotionButton = (ImageButton) findViewById(R.id.chat_btn_emote);
-        inputEdit = (EditText) findViewById(R.id.chat_edit_input);
+        chatMeessageListView = findViewById(R.id.chat_Listview);
+        sendButton = findViewById(R.id.chat_btn_send);
+        emotionButton = findViewById(R.id.chat_btn_emote);
+        inputEdit = findViewById(R.id.chat_edit_input);
 
     }
 
     @SuppressLint("HandlerLeak")
-	@Override
+    @Override
     protected void initEvents() {
         handler = new Handler() {
             public void handleMessage(Message msg) {
@@ -74,8 +75,7 @@ public class ChatActivity extends BaseActivity {
             }
         };
         ApplicationData.getInstance().setChatHandler(handler);
-        chatList = ApplicationData.getInstance().getChatMessagesMap()
-                .get(friendId);
+        chatList = ApplicationData.getInstance().getChatMessagesMap().get(friendId);
         if (chatList == null) {
             chatList = ImDB.getInstance(ChatActivity.this).getChatMessage(friendId);
             ApplicationData.getInstance().getChatMessagesMap().put(friendId, chatList);
@@ -84,6 +84,7 @@ public class ChatActivity extends BaseActivity {
         chatMeessageListView.setAdapter(chatMessageAdapter);
         sendButton.setOnClickListener(v -> {
             String content = inputEdit.getText().toString();
+            if (TextUtils.isEmpty(content)) return;
             inputEdit.setText("");
             ChatEntity chatMessage = new ChatEntity();
             chatMessage.setContent(content);

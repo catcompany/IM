@@ -43,7 +43,6 @@ public class TranObject implements Serializable {
 		this.receiveId = receiveId;
 	}
 	public TranObject(Object object,TranObjectType tranType) {
-	
 		this.object = object;
 		this.tranType = tranType;
 	}
@@ -65,6 +64,17 @@ public class TranObject implements Serializable {
 	public void setTranType(TranObjectType tranType) {
 		this.tranType = tranType;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "TranObject{" +
+				"object=" + object +
+				", tranType=" + tranType +
+				", result=" + result +
+				", sendTime='" + sendTime + '\'' +
+				", sendId=" + sendId +
+				", receiveId=" + receiveId +
+				", sendName='" + sendName + '\'' +
+				'}';
+	}
 }

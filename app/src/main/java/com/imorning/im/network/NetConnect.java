@@ -8,9 +8,10 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class NetConnect {
-
-	// TODO: 2021/4/12 绑定服务器
-    private static final String SERVER_IP = "im.catcompany.cn";
+    private static final String TAG = NetConnect.class.getSimpleName();
+    // TODO: 2021/4/12 绑定服务器
+    // private static final String SERVER_IP = "im.catcompany.cn";
+    private static final String SERVER_IP = "192.168.1.104";
     private static final int SERVER_PORT = 1124;
     private Socket mClientSocket = null;
     private boolean mIsConnected = false;
@@ -22,14 +23,14 @@ public class NetConnect {
         try {
             mClientSocket = new Socket();
             mClientSocket.connect(new InetSocketAddress(SERVER_IP, SERVER_PORT), 3000);
-            Log.d("Network", "服务器连接成功");
-			mIsConnected = mClientSocket.isConnected();
+            Log.d(TAG, "服务器连接成功");
+            mIsConnected = mClientSocket.isConnected();
         } catch (UnknownHostException e) {
             e.printStackTrace();
-            Log.d("Network", "服务器地址无法解析");
+            Log.d(TAG, "服务器地址无法解析");
         } catch (IOException e) {
             e.printStackTrace();
-            Log.d("Network", "Socket io异常");
+            Log.d(TAG, "Socket io异常");
         }
     }
 

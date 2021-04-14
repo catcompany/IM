@@ -3,7 +3,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/background_normal"
-    android:orientation="vertical" >
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
     <include
         android:id="@+id/reg_header"
@@ -13,47 +14,46 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/reg_header"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <ViewFlipper
                 android:id="@+id/reg_vf_viewflipper"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:flipInterval="1000"
-                android:persistentDrawingCache="animation" >
+                android:persistentDrawingCache="animation">
 
                 <include
+                    layout="@layout/include_register_account"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    layout="@layout/include_register_account" />
+                    android:layout_height="fill_parent" />
 
-               
-
-                <include
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    layout="@layout/include_register_setpwd" />
 
                 <include
+                    layout="@layout/include_register_setpwd"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    layout="@layout/include_register_baseinfo" />
+                    android:layout_height="fill_parent" />
 
                 <include
+                    layout="@layout/include_register_baseinfo"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    layout="@layout/include_register_birthday" />
+                    android:layout_height="fill_parent" />
 
                 <include
+                    layout="@layout/include_register_birthday"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    layout="@layout/include_register_photo" />
+                    android:layout_height="fill_parent" />
+
+                <include
+                    layout="@layout/include_register_photo"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" />
             </ViewFlipper>
         </LinearLayout>
 
@@ -63,10 +63,10 @@
             android:background="@drawable/bg_unlogin_bar"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingBottom="4dip"
             android:paddingLeft="8dip"
+            android:paddingTop="4dip"
             android:paddingRight="8dip"
-            android:paddingTop="4dip" >
+            android:paddingBottom="4dip">
 
             <Button
                 android:id="@+id/reg_btn_previous"

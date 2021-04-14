@@ -12,54 +12,55 @@ import java.net.SocketAddress;
  * 服务器对客户端的监听监听
  */
 public class ClientListenThread implements Runnable {
-    private final ClientActivity client;
-    private final ObjectInputStream read;
+    private final ClientActivity clientActivity;
+    private ObjectInputStream objectInputStream;
     private boolean isRunning;
 
-    public ClientListenThread(ObjectInputStream read, ClientActivity client) {
-        this.read = read;
-        this.client = client;
+    public ClientListenThread(ObjectInputStream objectInputStream, ClientActivity clientActivity) {
+        this.objectInputStream = objectInputStream;
+        this.clientActivity = clientActivity;
         isRunning = true;
     }
 
     @Override
     public void run() {
-        SocketAddress s = client.getmClient().getRemoteSocketAddress();
+        SocketAddress s = clientActivity.getmClient().getRemoteSocketAddress();
         while (isRunning) {
             readMsg();
         }
     }
 
     private void readMsg() {
-        SocketAddress s = client.getmClient().getRemoteSocketAddress();
+        SocketAddress s = clientActivity.getmClient().getRemoteSocketAddress();
         try {
-            TranObject tran = (TranObject) read.readObject();
+            TranObject tran = (TranObject) objectInputStream.readObject();
             TranObjectType type = tran.getTranType();
             switch (type) {
                 case REGISTER_ACCOUNT:
                     String account = (String) tran.getObject();
-                    client.checkAccount(account);
+                    clientActivity.checkAccount(account);
                     break;
                 case REGISTER:
-                    client.regist(tran);
+                    clientActivity.regist(tran);
                     break;
                 case LOGIN:
-                    client.login(tran);
+                    clientActivity.login(tran);
                     break;
                 case SEARCH_FRIEND:
-                    client.searchFriend(tran);
+                    clientActivity.searchFriend(tran);
                     break;
                 case FRIEND_REQUEST:
-                    client.friendRequset(tran);
+                    clientActivity.friendRequset(tran);
                     break;
                 case MESSAGE:
-                    client.sendMessage(tran);
+                    clientActivity.sendMessage(tran);
                 default:
                     break;
             }
         } catch (EOFException e) {
-            client.close();
-            e.printStackTrace();
+            // TODO: 2021/4/14 此处会抛出 EOFException
+            //e.printStackTrace();
+            clientActivity.close();
         } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
         }
@@ -67,6 +68,7 @@ public class ClientListenThread implements Runnable {
 
     public void close() {
         isRunning = false;
+        objectInputStream = null;
     }
 
 }

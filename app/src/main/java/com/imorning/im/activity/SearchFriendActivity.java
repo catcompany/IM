@@ -3,6 +3,7 @@ package com.imorning.im.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -74,7 +75,7 @@ public class SearchFriendActivity extends BaseActivity implements
     }
 
     @SuppressLint("NonConstantResourceId")
-	@Override
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.search_friend_by_name_btn_search:
@@ -97,10 +98,10 @@ public class SearchFriendActivity extends BaseActivity implements
                 break;
             case R.id.search_friend_by_else_btn_search:
                 flag = false;
-                int lage = mSearchSpLowage.getSelectedItemPosition() + 5;
-                int uage = mSearchSpHighage.getSelectedItemPosition() + 5;
-                if (lage > uage)
-                    showCustomToast("年龄不合法");
+                int minAge = mSearchSpLowage.getSelectedItemPosition() + 5;
+                int maxAge = minAge + 35;
+                if (minAge > maxAge)
+                    showCustomToast("年龄选择有误，请重新选择！");
                 else {
                     int sex = 3;// 默认全部
                     int choseId = mRgpSex.getCheckedRadioButtonId();
@@ -116,8 +117,7 @@ public class SearchFriendActivity extends BaseActivity implements
                     }
                     try {
                         flag = true;
-                        UserAction.searchFriend("1" + " " + lage + " " + uage + " "
-                                + sex);
+                        UserAction.searchFriend("1" + " " + minAge + " " + maxAge + " "+ sex);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -128,8 +128,9 @@ public class SearchFriendActivity extends BaseActivity implements
         }
         if (flag) {
             mIsReceived = false;
-            showLoadingDialog("正在查找...");
+            showLoadingDialog("正在查找...",false);
             while (!mIsReceived) {
+
             }
             System.out.println("准备跳转查找结果页面");
             Intent intent = new Intent(this, FriendSearchResultActivity.class);
@@ -138,7 +139,6 @@ public class SearchFriendActivity extends BaseActivity implements
             //intent.putExtras(mBundle);
             startActivity(intent);
             finish();
-            System.out.println("已跳转");
         }
 
     }

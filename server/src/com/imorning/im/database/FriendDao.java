@@ -16,9 +16,9 @@ public class FriendDao {
 
     public static ArrayList<User> getFriend(int id) {
         ArrayList<User> list = new ArrayList<>();
-        String sql0 = String.format("use %s", ServerDatabaseInfo.DBNAME);
-        String sql1 = "select * from " + ServerDatabaseInfo.TABLE_FRIEND_LIST +
-                " as f left outer join " + ServerDatabaseInfo.TABLE_USER + " as u " +
+        String sql0 = String.format("use %s", DataBaseConfig.DBNAME);
+        String sql1 = "select * from " + DataBaseConfig.TABLE_FRIEND_LIST +
+                " as f left outer join " + DataBaseConfig.TABLE_USER + " as u " +
                 "on f.friendid=u.id " +
                 "where master=?";
         Connection con = DBPool.getConnection();
@@ -52,8 +52,8 @@ public class FriendDao {
     }
 
     public static void addFriend(int id, int friendID) {
-        String sql0 = "use " + ServerDatabaseInfo.DBNAME;
-        String sql1 = "insert into " + ServerDatabaseInfo.TABLE_FRIEND_LIST + "(master,friendid) " +
+        String sql0 = "use " + DataBaseConfig.DBNAME;
+        String sql1 = "insert into " + DataBaseConfig.TABLE_FRIEND_LIST + "(master,friendid) " +
                 "values(?,?)";
         Connection con = DBPool.getConnection();
         try {

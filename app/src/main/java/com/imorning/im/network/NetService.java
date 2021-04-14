@@ -5,14 +5,17 @@ import java.net.Socket;
 
 import com.imorning.im.bean.TranObject;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 public class NetService {
+
+	@SuppressLint("StaticFieldLeak")
 	private static NetService mInstance = null;
 
 	private ClientListenThread mClientListenThread = null;
 	private ClientSendThread mClientSendThread = null;
-	private NetConnect mConnect = null;
+	private NetConnect netConnect = null;
 	private Socket mClientSocket = null;
 	private boolean mIsConnected = false;
 	private Context mContext = null;
@@ -33,11 +36,11 @@ public class NetService {
 	}
 
 	public void setupConnection() {
-		mConnect = new NetConnect();
-		mConnect.startConnect();
-		if (mConnect.getIsConnected()) {
+		netConnect = new NetConnect();
+		netConnect.startConnect();
+		if (netConnect.getIsConnected()) {
 			mIsConnected = true;
-			mClientSocket = mConnect.getSocket();
+			mClientSocket = netConnect.getSocket();
 			startListen(mClientSocket);
 		} else {
 			mIsConnected = false;
@@ -50,7 +53,7 @@ public class NetService {
 
 	public void startListen(Socket socket) {
 		mClientSendThread = new ClientSendThread(socket);
-		mClientListenThread = new ClientListenThread(mContext, socket);
+		mClientListenThread = new ClientListenThread(socket);
 		mClientListenThread.start();
 	}
 

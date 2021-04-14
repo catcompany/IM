@@ -18,10 +18,8 @@ public class UserAction {
     private static final NetService mNetService = NetService.getInstance();
 
     public static void accountVerify(String account) throws IOException {
-
         TranObject t = new TranObject(account, TranObjectType.REGISTER_ACCOUNT);
         mNetService.send(t);
-
     }
 
     public static void register(User user) throws IOException {
@@ -61,14 +59,13 @@ public class UserAction {
     }
 
     public static void sendMessage(ChatEntity message) {
-
-        TranObject t = new TranObject();
-        t.setTranType(TranObjectType.MESSAGE);
-        t.setReceiveId(message.getReceiverId());
-        t.setSendName(ApplicationData.getInstance().getUserInfo().getUserName());
-        t.setObject(message);
+        TranObject msgTranObject = new TranObject();
+        msgTranObject.setTranType(TranObjectType.MESSAGE);
+        msgTranObject.setReceiveId(message.getReceiverId());
+        msgTranObject.setSendName(ApplicationData.getInstance().getUserInfo().getUserName());
+        msgTranObject.setObject(message);
         try {
-            mNetService.send(t);
+            mNetService.send(msgTranObject);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -8,10 +8,11 @@ import java.sql.SQLException;
  * 使用数据库连接池加大响应速度
  */
 public class DBPool {
-    private static final String dbUserName = "morning2021_f";
-    private static final String dbPwd = "morning20210401";
-    private static final String dbHost = "co3jhe2l.2419.dnstoo.com";
-    private static final String dbPort = "5501";
+    // TODO: 2021/4/13 数据库配置
+    private final static String dbUserName = DataBaseConfig.dbUserName;
+    private final static String dbPwd = DataBaseConfig.dbPwd;
+    private final static String dbHost = DataBaseConfig.dbHost;
+    private final static String dbPort = DataBaseConfig.dbPort;
 
     private DBPool() {
     }
@@ -24,7 +25,7 @@ public class DBPool {
             return DriverManager.getConnection("jdbc:mysql://" +
                             dbHost + ":" +
                             dbPort + "/" +
-                            ServerDatabaseInfo.DBNAME +
+                            DataBaseConfig.DBNAME +
                             "?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC",
                     dbUserName, dbPwd);
         } catch (SQLException | ClassNotFoundException e) {
