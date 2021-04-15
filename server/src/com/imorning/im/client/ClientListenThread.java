@@ -59,8 +59,9 @@ public class ClientListenThread implements Runnable {
             }
         } catch (EOFException e) {
             // TODO: 2021/4/14 此处会抛出 EOFException
-            //e.printStackTrace();
+            e.printStackTrace();
             clientActivity.close();
+            System.exit(0);
         } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
         }

@@ -7,7 +7,7 @@ import com.imorning.im.database.FriendDao;
 import com.imorning.im.database.SaveMsgDao;
 import com.imorning.im.database.UserDao;
 import com.imorning.im.global.Result;
-import com.imorning.im.server.ServerListen;
+import com.imorning.im.server.MainServerListen;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -24,7 +24,7 @@ public class ClientActivity {
     /*  发送队列， 因为服务器有多个监听客户端的线程，当很多好友一起向他发送消息，每个服务器线程
        都同时调用此实例的socket争夺send ，并发控制异常。*/
     private final LinkedList<TranObject> sendQueue;
-    private final ServerListen mServer; // 服务器
+    private final MainServerListen mServer; // 服务器
     private final User user;
     private final ClientListenThread mClientListen; // 客户端监听进程
     private final ClientSendThread mClientSend; // 客户端发送进程
@@ -32,7 +32,7 @@ public class ClientActivity {
     private ObjectOutputStream mOutput;
     private ObjectInputStream mInput;
 
-    public ClientActivity(ServerListen mServer, Socket mClient) {
+    public ClientActivity(MainServerListen mServer, Socket mClient) {
         user = new User();
         sendQueue = new LinkedList<>();
         this.mServer = mServer;
@@ -41,6 +41,7 @@ public class ClientActivity {
             mOutput = new ObjectOutputStream(mClient.getOutputStream());
             mInput = new ObjectInputStream(mClient.getInputStream());
         } catch (EOFException e) {
+            e.printStackTrace();
             System.err.printf("eof error:%s%n", e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
@@ -112,8 +113,9 @@ public class ClientActivity {
 
             tran.setObject(user);
 
-        } else
+        } else {
             tran.setResult(Result.LOGIN_FAILED);
+        }
         send(tran);
         // 获取离线信息
         ArrayList<TranObject> offMsg = SaveMsgDao.selectMsg(user.getId());
@@ -151,7 +153,7 @@ public class ClientActivity {
     /**
      * 客户端下线
      */
-    public void getOffLine() {
+    public synchronized void getOffLine() {
         mServer.closeClientByID(user.getId());
         UserDao.updateIsOnline(user.getId(), false);
     }
@@ -166,7 +168,7 @@ public class ClientActivity {
             mClientSend.close();
             if (user.getId() != 0) {
                 getOffLine();
-                System.out.println(user.getAccount() + "下线了...");
+                //System.out.println(user.getAccount() + "下线了...");
             }
         } catch (IOException e) {
             //System.out.println("关闭失败.....");
