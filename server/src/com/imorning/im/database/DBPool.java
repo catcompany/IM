@@ -17,6 +17,15 @@ public class DBPool {
     private DBPool() {
     }
 
+    // TODO: 2021-04-19 del it
+    public static String getCon() {
+        return "jdbc:mysql://" +
+                dbHost + ":" +
+                dbPort + "/" +
+                DataBaseConfig.DBNAME +
+                "?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC";
+    }
+
     public static Connection getConnection() {
         try {
             //加载jdbc驱动
