@@ -14,6 +14,11 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        externalNativeBuild {
+            cmake {
+                cppFlags "-std=c++17"
+            }
+        }
     }
 
     buildTypes {
@@ -33,10 +38,14 @@ android {
             }
         }
     }
+    externalNativeBuild {
+        cmake {
+            path file('src/main/jni/CMakeLists.txt')
+        }
+    }
 }
 
 dependencies {
-
     implementation 'com.hjq:xxpermissions:10.6'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
